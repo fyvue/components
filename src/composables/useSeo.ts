@@ -10,10 +10,17 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
     links: computed(() => {
       const _res: Array<any> = [];
 
-      if (initial && getMode() == "ssr") {
+      if (initial && getMode() == "ssr" && !seo.value.canonical) {
         _res.push({
           rel: "canonical",
           href: `${getUrl().scheme}://${getUrl().host}${getUrl().path}`,
+          key: "canonical",
+        });
+      }
+      if (seo.value.canonical) {
+        _res.push({
+          rel: "canonical",
+          href: `${seo.value.canonical}`,
           key: "canonical",
         });
       }
@@ -46,7 +53,7 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
       const _res: Array<any> = [];
 
       if (initial) {
-        if (getMode() == "ssr") {
+        if (getMode() == "ssr" && !seo.value.url) {
           _res.push(
             {
               property: "og:locale",
@@ -69,6 +76,12 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
               "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
           }
         );
+      }
+      if (seo.value.url) {
+        _res.push({
+          property: "og:url",
+          content: seo.value.url,
+        });
       }
       if (seo.value.name) {
         _res.push({

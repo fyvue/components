@@ -2,7 +2,13 @@ import { KlbAPIResult } from "../types/klb";
 import { FetchResult } from "../types/utils";
 import { stringHash, isServerRendered, SSRRender } from "@fy-/core";
 import { useRestState } from "../stores/rest";
-import { rest as _rest, getMode, getUuid, getPath } from "@karpeleslab/klbfw";
+import {
+  rest as _rest,
+  getMode,
+  getUuid,
+  getPath,
+  getUrl,
+} from "@karpeleslab/klbfw";
 
 export interface SSROptions {
   url: string | null;
@@ -10,7 +16,8 @@ export interface SSROptions {
 export function restFetch<ResultType extends FetchResult>(
   url: string,
   method: string = "GET",
-  params: object = {}
+  params: object = {},
+  headers: Headers = new Headers()
 ): Promise<ResultType> {
   const requestHash = stringHash(url + method + JSON.stringify(params));
   const restState = useRestState();
@@ -26,7 +33,7 @@ export function restFetch<ResultType extends FetchResult>(
       } else resolve(result);
     });
   }
-  const headers = new Headers();
+  //const headers = new Headers();
   headers.set("Content-Type", "application/json");
   let _params: any = params;
   if (method == "POST") {
@@ -117,7 +124,9 @@ export async function handleSSR(
   let url: string;
   if (options.url) url = options.url;
   else {
-    url = `${getPath()}`;
+    //url = `${getPath()}`;
+    const query = getUrl().query;
+    url = `${getPath()}${query ? `?${query}` : ""}`;
   }
   return SSRRender(createApp, url, cb, getUuid());
 }

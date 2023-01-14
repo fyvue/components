@@ -23,4 +23,18 @@ export interface FyHeadLazy {
   locale?: string;
   robots?: string;
   url?: string;
+  canonical?: string;
+}
+export type modelValueType = string | number | string[] | undefined;
+export type checkboxValueType = any[] | Set<any> | undefined | boolean;
+export interface Paging {
+  page_no: number;
+  results_per_page: number;
+  page_max: number;
+  page_max_relation: string;
+  count: number;
+}
+export interface BreadcrumbLink {
+  name: string;
+  to?: string;
 }
