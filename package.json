@@ -1,6 +1,6 @@
 {
     "name": "@fy-/components",
-    "version": "0.0.21",
+    "version": "0.0.28",
     "author": "Florian 'Fy' Gasquez <m@fy.to>",
     "license": "MIT",
     "repository": {
@@ -24,16 +24,16 @@
     },
     "peerDependencies": {
         "@fy-/core": "^0.0.x",
-        "@fy-/icons": "^0.0.x",
         "@fy-/head": "^0.0.x",
+        "@fy-/icons": "^0.0.x",
         "@headlessui/vue": "^1.7.x",
+        "@karpeleslab/klbfw": "0.1.x",
         "@vuelidate/core": "^2.0.x",
         "@vuelidate/validators": "^2.0.x",
         "@vueuse/core": "^9.5.x",
         "pinia": "2.0.x",
         "vue": "^3.2.x",
-        "vue-router": "^4.1.x",
-        "@karpeleslab/klbfw": "0.1.x"
+        "vue-router": "^4.1.x"
     },
     "scripts": {
         "build": "rm -rf dist/ && vite build --mode development && vue-tsc  --declaration --emitDeclarationOnly --emitDeclarationOnly --outdir ./dist",
@@ -42,8 +42,8 @@
     },
     "devDependencies": {
         "@fy-/core": "workspace:*",
-        "@fy-/icons": "workspace:*",
         "@fy-/head": "workspace:*",
+        "@fy-/icons": "workspace:*",
         "@headlessui/vue": "^1.7.7",
         "@heroicons/vue": "^2.0.13",
         "@karpeleslab/klbfw": "^0.1.13",

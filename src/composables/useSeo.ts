@@ -77,6 +77,16 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
           }
         );
       }
+      if (seo.value.isAdult && seo.value.isAdult == true) {
+        _res.push({
+          property: "rating",
+          content: "adult",
+        });
+        _res.push({
+          property: "RATING",
+          content: "RTA-5042-1996-1400-1577-RTA",
+        });
+      }
       if (seo.value.url) {
         _res.push({
           property: "og:url",

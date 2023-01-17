@@ -24,6 +24,7 @@ export interface FyHeadLazy {
   robots?: string;
   url?: string;
   canonical?: string;
+  isAdult?: boolean;
 }
 export type modelValueType = string | number | string[] | undefined;
 export type checkboxValueType = any[] | Set<any> | undefined | boolean;

@@ -13,13 +13,27 @@ import {
 export interface SSROptions {
   url: string | null;
 }
+
 export function restFetch<ResultType extends FetchResult>(
   url: string,
   method: string = "GET",
   params: object = {},
   headers: Headers = new Headers()
 ): Promise<ResultType> {
-  const requestHash = stringHash(url + method + JSON.stringify(params));
+  let _params: any = params;
+  let _url: string = url;
+  if (method == "POST") {
+    _params = JSON.stringify(params);
+    _url = url;
+  } else if (method == "GET") {
+    _params = "";
+    if (params) {
+      _params = "?" + new URLSearchParams(params as Record<string, string>);
+    }
+    if (_params == "?") _params = "";
+    _url = `${url}${_params}`;
+  }
+  const requestHash = stringHash(`${_url}${method}${_params}`);
   const restState = useRestState();
   if (isServerRendered() && restState.getFetchResultByHash(requestHash)) {
     const result = {
@@ -35,18 +49,9 @@ export function restFetch<ResultType extends FetchResult>(
   }
   //const headers = new Headers();
   headers.set("Content-Type", "application/json");
-  let _params: any = params;
-  if (method == "POST") {
-    _params = JSON.stringify(params);
-  } else if (method == "GET") {
-    _params = undefined;
-    if (params) {
-      _params = "?" + new URLSearchParams(params as Record<string, string>);
-    }
-    if (_params == "?") _params = "";
-  }
+
   return new Promise<ResultType>((resolve, reject) => {
-    fetch(`${url}${method == "GET" ? _params : ""}`, {
+    fetch(_url, {
       method: method,
       body: method == "POST" ? _params : undefined,
       headers,
