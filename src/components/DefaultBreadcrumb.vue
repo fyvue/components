@@ -27,9 +27,6 @@ withDefaults(
               : 'inline-flex items-center'
             : 'inline-flex items-center'
         "
-        itemprop="itemListElement"
-        itemtype="https://schema.org/ListItem"
-        itemscope
       >
         <ChevronRightIcon
           v-if="index != 0"
@@ -45,7 +42,9 @@ withDefaults(
         <router-link
           :to="item.to"
           v-if="item.to"
-          itemprop="item"
+          itemprop="itemListElement"
+          itemtype="https://schema.org/ListItem"
+          itemscope
           :class="
             item.to
               ? index == 0
@@ -66,10 +65,14 @@ withDefaults(
           />
           <span itemprop="name">{{ item.name }}</span>
           <meta itemprop="position" :content="(index + 1).toString()" />
+          <meta itemprop="url" :content="item.to" />
         </router-link>
         <span
           class="text-xs font-medium text-fv-neutral-500 dark:text-fv-neutral-200"
           v-else
+          itemprop="itemListElement"
+          itemtype="https://schema.org/ListItem"
+          itemscope
         >
           <span itemprop="name">{{ item.name }}</span>
           <meta itemprop="position" :content="(index + 1).toString()" />
