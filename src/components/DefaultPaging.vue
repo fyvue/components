@@ -75,18 +75,18 @@ const checkPageNumber = (page: number = 1) => {
   }
 };
 
-eventBus.on(`${props.id}GoToPage`, checkPageNumber);
+pageWatcher.value = watch(
+  () => route.query.page,
+  (v) => {
+    eventBus.emit(`${props.id}GoToPage`, v ? v : 1);
+  }
+);
 onMounted(() => {
-  pageWatcher.value = watch(
-    () => route.query.page,
-    (v) => {
-      eventBus.emit(`${props.id}GoToPage`, v ? v : 1);
-    }
-  );
+  eventBus.on(`${props.id}GoToPage`, checkPageNumber);
 });
 onUnmounted(() => {
   eventBus.off(`${props.id}GoToPage`, checkPageNumber);
-  if (pageWatcher.value) pageWatcher.value();
+  //if (pageWatcher.value) pageWatcher.value();
 });
 
 checkPageNumber(props.items.page_no);

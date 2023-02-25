@@ -1,0 +1,36 @@
+.fui-table {
+  @apply flex flex-col;
+
+  .fui-table__container {
+    @apply overflow-x-auto;
+  }
+  .fui-table__inner {
+    @apply inline-block min-w-full;
+  }
+  .fui-table__scroll {
+    @apply overflow-x-auto;
+  }
+  table {
+    @apply min-w-full text-sm text-left text-fv-neutral-500 dark:text-fv-neutral-400;
+    thead {
+      @apply text-xs text-fv-neutral-700 uppercase bg-fv-neutral-50 dark:bg-fv-neutral-700 dark:text-fv-neutral-400;
+      th {
+        @apply py-3 px-6;
+      }
+    }
+    tbody {
+      tr {
+        @apply bg-white border-b dark:bg-fv-neutral-900 dark:border-fv-neutral-700;
+      }
+      tr:last-child {
+        @apply border-0;
+      }
+      th {
+        @apply py-4 px-6 font-medium text-fv-neutral-900 whitespace-nowrap dark:text-white;
+      }
+      td {
+        @apply py-4 px-6;
+      }
+    }
+  }
+}

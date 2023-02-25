@@ -60,14 +60,13 @@ const sendMessage = async () => {
     eventBus.emit("main-loading", false);
   }
 };
-onMounted(() => {
-  isAuthWatcher.value = watch(isAuth, () => {
-    state.contact.fullname = store.user?.Profile.Display_Name;
-    state.contact.email = store.user?.Email;
-  });
+isAuthWatcher.value = watch(isAuth, () => {
+  state.contact.fullname = store.user?.Profile.Display_Name;
+  state.contact.email = store.user?.Email;
 });
+onMounted(() => {});
 onUnmounted(() => {
-  if (isAuthWatcher.value) isAuthWatcher.value();
+  //if (isAuthWatcher.value) isAuthWatcher.value();
 });
 </script>
 <template>

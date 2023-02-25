@@ -1,6 +1,6 @@
 {
     "name": "@fy-/components",
-    "version": "0.0.31",
+    "version": "0.0.52",
     "author": "Florian 'Fy' Gasquez <m@fy.to>",
     "license": "MIT",
     "repository": {
@@ -20,6 +20,10 @@
             "import": "./dist/fycomponents.es.js",
             "require": "./dist/fycomponents.cjs.js",
             "types": "./dist/index.d.ts"
+        },
+        "./style.css": {
+          "import": "./dist/style.css",
+          "require": "./dist/style.css"
         }
     },
     "peerDependencies": {

@@ -10,10 +10,12 @@ import DefaultModal from "./components/DefaultModal.vue";
 import DefaultInput from "./components/DefaultInput.vue";
 import DefaultPaging from "./components/DefaultPaging.vue";
 import DefaultBreadcrumb from "./components/DefaultBreadcrumb.vue";
+import DefaultTable from "./components/DefaultTable.vue";
+import DefaultSidebar from "./components/DefaultTable.vue";
 import KlbContact from "./components/KlbContact.vue";
 import KlbUserFlow from "./components/KlbUserFlow.vue";
-
 import type { FyHeadLazy } from "./types/utils";
+import "./global.scss";
 
 export {
   // Base
@@ -21,6 +23,8 @@ export {
   DefaultInput,
   DefaultPaging,
   DefaultBreadcrumb,
+  DefaultTable,
+  DefaultSidebar,
 
   // KLB
   KlbUseStore,
