@@ -23,7 +23,9 @@ const props = withDefaults(
     returnDefault: "/",
   }
 );
-
+const isExternalUrl = (url: string) => {
+  return url.startsWith("http://") || url.startsWith("https://");
+};
 type paramsType = {
   initial: boolean;
   oauth?: string;
@@ -117,9 +119,13 @@ const userFlow = async (params: paramsType = { initial: false }) => {
     }
     if (response.value.data.complete == true && response.value.data.user) {
       store.setUser(response.value.data.user);
-      const routeExists = router.resolve(returnTo.value);
-      if (routeExists.matched.length != 0) router.push(returnTo.value);
-      else window.location.href = returnTo.value;
+      if (isExternalUrl(returnTo.value)) {
+        window.location.href = returnTo.value;
+      } else {
+        const routeExists = router.resolve(returnTo.value);
+        if (routeExists.matched.length != 0) router.push(returnTo.value);
+        else window.location.href = returnTo.value;
+      }
       return;
     }
     if (response.value.data.url) {

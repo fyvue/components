@@ -3,6 +3,7 @@ import { NavLink } from "../types/utils";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/vue/24/solid";
 import { useStorage } from "@vueuse/core";
 import { useRoute } from "vue-router";
+
 const props = withDefaults(
   defineProps<{
     links: NavLink[];
