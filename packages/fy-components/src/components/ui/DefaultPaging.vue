@@ -8,7 +8,7 @@ import {
   onMounted,
   computed,
 } from "vue";
-import type { Paging } from "../types/utils";
+import type { Paging } from "../../types/utils";
 import { useEventBus, useServerRouter } from "@fy-/core";
 import { useRoute } from "vue-router";
 import { useFyHead } from "@fy-/head";

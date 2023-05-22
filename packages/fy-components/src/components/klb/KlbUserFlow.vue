@@ -6,10 +6,10 @@ import type {
   KlbUserFlow,
   KlbUserFlowField,
   KlbAPIResultUnknown,
-} from "../types/klb";
-import { rest } from "../helpers/KlbSSR";
-import { useKlbStore } from "../stores/klb";
-import DefaultInput from "./DefaultInput.vue";
+} from "../../types/klb";
+import { rest } from "../../helpers/KlbSSR";
+import { useKlbStore } from "../../stores/klb";
+import DefaultInput from "../ui/DefaultInput.vue";
 type ObjectS2Any = {
   [key: string]: any;
 };

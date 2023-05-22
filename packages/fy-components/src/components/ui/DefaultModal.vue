@@ -64,7 +64,7 @@ onUnmounted(() => {
           class="relative mx-1 md:mx-0 w-11/12 max-w-6xl shadow"
           style="z-index: 41"
         >
-          <slot name="before" />
+          <slot name="before"></slot>
           <div class="bg-fv-neutral-100 dark:bg-fv-neutral-800">
             <DialogTitle
               class="text-xl flex justify-between items-center px-2 py-1 bg-fv-neutral-50 dark:bg-fv-neutral-900"
@@ -91,7 +91,7 @@ onUnmounted(() => {
                   : 'p-2 md:p-3 xl:p-4 2xl:p-5'
               "
             >
-              <slot />
+              <slot></slot>
             </div>
           </div>
         </DialogPanel>
