@@ -26,6 +26,7 @@ const checkBox = ref();
       label="Test checkbox"
       class="mt-4"
       id="thecheckbox"
+      linkIcon="https://www.google.com"
       checkboxFalseValue="0"
       checkboxTrueValue="1"
     />

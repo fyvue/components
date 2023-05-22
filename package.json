@@ -6,7 +6,7 @@
         "packages/playground"
     ],
     "scripts": {
-        "build:components": "pnpm -C packages/fy-components build",
+        "build:components": "pnpm -C packages/fy-components lint:check --fix && pnpm -C packages/fy-components build",
         "lint:components": "pnpm -C packages/fy-components lint:check --fix",
         "play": "pnpm -C packages/playground dev:live",
         "build:play": "pnpm -C packages/playground build",

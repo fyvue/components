@@ -135,16 +135,16 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
           }
         );
       }
-      if (seo.value.modified) {
-        _res.push({
-          property: "article:published_time",
-          content: seo.value.modified,
-        });
-      }
       if (seo.value.published) {
         _res.push({
-          property: "article:modified_time",
+          property: "article:published_time",
           content: seo.value.published,
+        });
+      }
+      if (seo.value.modified) {
+        _res.push({
+          property: "article:modified_time",
+          content: seo.value.modified,
         });
       }
       if (seo.value.imageWidth && seo.value.imageHeight) {

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { HomeIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
-import type { BreadcrumbLink } from "../types/utils";
+import type { BreadcrumbLink } from "../../types/utils";
 withDefaults(
   defineProps<{
     nav: BreadcrumbLink[];

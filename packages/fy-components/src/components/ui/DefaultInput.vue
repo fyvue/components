@@ -184,8 +184,16 @@ defineExpose({ focus, getInputRef });
             :class="{
               'text-red-600 dark:text-red-500': checkErrors,
             }"
-            >{{ label }}</label
-          >
+            >{{ label }}
+            <a
+              class="w-4 h-4 inline-block btn link !mx-1 align-middle"
+              :href="linkIcon"
+              target="_blank"
+              v-if="linkIcon"
+            >
+              <LinkIcon />
+            </a>
+          </label>
           <p
             v-if="help"
             class="text-xs font-normal text-fv-neutral-500 dark:text-fv-neutral-300"

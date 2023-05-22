@@ -47,9 +47,15 @@ export type NavLink = {
   icon?: Component;
   id?: string;
 };
+
+export interface TableData {
+  [key: string]: any;
+}
+
 export interface TableHeaders {
   [key: string]: string;
 }
-export interface TableData {
-  [key: string]: any;
+
+export interface TableSortable {
+  [key: string]: boolean;
 }
