@@ -117,13 +117,13 @@ defineExpose({ focus, getInputRef });
         }"
         ref="inputRef"
         :aria-describedby="label"
-        placeholder=" "
         :autocomplete="autocomplete"
         :id="id"
         v-model="model"
         :type="type"
         :disabled="disabled"
         :required="req"
+        :placeholder="placeholder"
       />
       <textarea
         :aria-describedby="label"
@@ -134,12 +134,12 @@ defineExpose({ focus, getInputRef });
           'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
             checkErrors,
         }"
-        :placeholder="placeholder"
         :autocomplete="autocomplete"
         :id="id"
         v-model="model"
         :disabled="disabled"
         :required="req"
+        :placeholder="placeholder"
       ></textarea>
       <select
         :aria-describedby="label"

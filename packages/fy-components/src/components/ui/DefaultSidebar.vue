@@ -63,3 +63,78 @@ const isOpen = useStorage(`isOpenSidebar-${props.id}`, true);
     <slot name="after"></slot>
   </aside>
 </template>
+<style lang="scss" scoped>
+.fui-sidebar {
+  @apply w-60;
+  transition: width 600ms ease-in-out;
+  .fui-sidebar__controller {
+    @apply py-3 flex items-center justify-end pr-3;
+    svg {
+      @apply w-4 h-4;
+    }
+  }
+  .fui-sidebar__link {
+    @apply relative flex w-full items-center py-3 px-3 font-semibold text-sm border-l-[.4rem] border-l-transparent;
+    @apply text-fv-neutral-600 hover:bg-fv-neutral-200/[.3] focus:bg-fv-neutral-200/[.3] hover:text-fv-primary-600;
+    @apply dark:text-fv-neutral-300 dark:hover:bg-fv-neutral-700/[.3] dark:focus:bg-fv-neutral-700/[.3] dark:hover:text-fv-primary-400;
+    //@apply  bg-red-600 outline;
+    &.fvside-active {
+      @apply border-l-fv-primary-500 bg-fv-neutral-200  hover:text-fv-neutral-600 focus:text-fv-neutral-600;
+      @apply dark:bg-fv-neutral-700 dark:hover:text-fv-neutral-300 dark:text-fv-neutral-300;
+    }
+    svg {
+      @apply w-6 h-6 mr-2 -ml-1 text-fv-neutral-400 dark:text-fv-neutral-500;
+    }
+    span {
+      @apply whitespace-nowrap;
+    }
+    transition: all 300ms ease-in-out;
+  }
+
+  &.fui-sidebar__md {
+    @apply w-12;
+    &.fui-sidebar__md {
+      @apply w-12;
+    }
+    .fui-sidebar__link {
+      @apply flex flex-col text-xs;
+      svg {
+        @apply mr-0;
+      }
+      span {
+        @apply hidden;
+      }
+    }
+    .fui-sidebar__link:hover .fui-tooltip,
+    .fui-sidebar__link:focus .fui-tooltip,
+    .fui-sidebar__link:active .fui-tooltip {
+      @apply visible opacity-100 left-11 top-0 bottom-0 flex items-center;
+    }
+  }
+}
+@media screen and (max-width: 640px) {
+  .fui-sidebar {
+    @apply w-12;
+    &.fui-sidebar__md {
+      @apply w-12;
+    }
+    .fui-sidebar__controller {
+      @apply hidden;
+    }
+    .fui-sidebar__link {
+      @apply flex flex-col text-xs;
+      svg {
+        @apply mr-0;
+      }
+      span {
+        @apply hidden;
+      }
+    }
+    .fui-sidebar__link:hover .fui-tooltip,
+    .fui-sidebar__link:focus .fui-tooltip,
+    .fui-sidebar__link:active .fui-tooltip {
+      @apply visible opacity-100 left-11 top-0 bottom-0 flex items-center;
+    }
+  }
+}
+</style>
