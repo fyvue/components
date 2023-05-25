@@ -59,3 +59,11 @@ export interface TableHeaders {
 export interface TableSortable {
   [key: string]: boolean;
 }
+export interface StepperStep {
+  title: string;
+  description?: string;
+}
+export interface StepperSteps {
+  list: StepperStep[];
+  current: number;
+}

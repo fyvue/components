@@ -1,10 +1,29 @@
 <script setup lang="ts">
-import { DefaultInput, DefaultModal } from "@fy-/components";
+import { DefaultInput, DefaultModal, DefaultStepper } from "@fy-/components";
 import { ref } from "vue";
 const inputTest = ref();
 const checkBox = ref();
 </script>
 <template>
+  <DefaultStepper
+    :steps="{
+      list: [
+        {
+          title: 'Step 1',
+          description: 'This is the first step',
+        },
+        {
+          title: 'Step 2',
+          description: 'This is the second step',
+        },
+        {
+          title: 'Step 3',
+          description: 'This is the third step',
+        },
+      ],
+      current: 1,
+    }"
+  />
   <DefaultModal id="test" title="Test Modal">
     <div class="p-4">
       <p>test</p>
