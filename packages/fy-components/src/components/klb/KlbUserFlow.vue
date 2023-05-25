@@ -248,7 +248,7 @@ onMounted(async () => {
               >
                 <img
                   :key="`${field.label}oauth`"
-                  class="h-12 w-12 block rounded p-2 mr-3 rounded-full border-4 shadow hover:border"
+                  class="h-12 w-12 block p-2 mr-3 rounded-full border-4 shadow hover:border"
                   :alt="field.info.Name"
                   :src="field.button.logo"
                   :style="`background: ${field.button['background-color']}`"

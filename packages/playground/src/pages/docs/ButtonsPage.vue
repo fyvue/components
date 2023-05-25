@@ -19,6 +19,7 @@
         <b>Colors variants:</b> <code>.primary</code>, <code>.accent</code>,
         <code>.danger</code>, <code>.valid</code>, <code>.neutral</code>.<br />
         <b>Size variants:</b> <code>.defaults</code>, <code>.large</code>,
+        <code>.small</code>,
         <code>.medium</code>
       </p>
       <div class="my-2 flex flex-wrap gap-4 justify-start items-center">
@@ -26,6 +27,7 @@
         <button class="btn accent large">btn accent large</button>
         <button class="btn neutral medium">btn neutral medium</button>
         <button class="btn valid defaults">btn valid</button>
+        <button class="btn valid small">btn valid small</button>
         <button class="btn danger defaults font-bold">
           font-bold btn danger defaults
         </button>

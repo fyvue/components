@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import { i18nextPromise } from "@fy-/core";
+import { Backend } from "@karpeleslab/i18next-klb-backend";
+import { KlbUseStore, KlbUseUserCheck } from "@fy-/components";
+import { computed } from "vue";
+await i18nextPromise(Backend);
+const klbStore = KlbUseStore();
+const isAuth = computed(() => klbStore.isAuth);
+if (!import.meta.env.SSR) {
+  KlbUseUserCheck("/login", true);
+}
 const components = [
   { link: "/docs/modal", title: "Modal" },
   { link: "/docs/breadcrumb", title: "Breadcrumb" },
@@ -8,8 +18,14 @@ const components = [
   { link: "/docs/table", title: "Table" },
 ];
 const css = [{ link: "/docs/buttons", title: "Buttons" }];
+const klb = [
+  { link: "/docs/klbuserflow", title: "KlbUserFlow" },
+  { link: "/docs/klbpage/test", title: "KlbPage" },
+  { link: "/docs/klbcontact", title: "KlbContact" },
+];
 components.sort((a, b) => a.title.localeCompare(b.title));
 css.sort((a, b) => a.title.localeCompare(b.title));
+klb.sort((a, b) => a.title.localeCompare(b.title));
 </script>
 <template>
   <div>
@@ -39,6 +55,18 @@ css.sort((a, b) => a.title.localeCompare(b.title));
           </h2>
           <ul class="py-1 pl-1 list-unstyled fw-normal small mb-4">
             <li v-for="(link, i) in components" :key="`link-${i}`">
+              <RouterLink class="btn link" :to="link.link">
+                {{ link.title }}</RouterLink
+              >
+            </li>
+          </ul>
+          <h2
+            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+          >
+            KLB
+          </h2>
+          <ul class="py-1 pl-1 list-unstyled fw-normal small mb-4">
+            <li v-for="(link, i) in klb" :key="`link-${i}`">
               <RouterLink class="btn link" :to="link.link">
                 {{ link.title }}</RouterLink
               >

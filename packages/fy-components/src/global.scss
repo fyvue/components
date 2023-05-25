@@ -1,5 +1,5 @@
 .btn {
-  @apply  inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors ring-fv-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  @apply  inline-flex items-center justify-center rounded-md font-medium transition-colors ring-fv-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
 
   &.primary {
     @apply text-white bg-fv-primary-700 hover:bg-fv-primary-700/90;
@@ -24,6 +24,9 @@
   }
   &.large {
     @apply px-6 py-3 text-xl;
+  }
+  &.small {
+    @apply px-2 py-1 text-xs;
   }
   &.link {
     @apply underline-offset-4 hover:underline text-fv-primary-900 dark:text-fv-primary-200;
