@@ -14,6 +14,7 @@ import DefaultBreadcrumb from "./components/ui/DefaultBreadcrumb.vue";
 import DefaultSidebar from "./components/ui/DefaultSidebar.vue";
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
+import KlbPage from "./components/klb/KlbPage.vue";
 
 import type { FyHeadLazy } from "./types/utils";
 import "./global.scss";
@@ -35,6 +36,8 @@ export {
   KlbRest,
   KlbContact,
   KlbUserFlow,
+  KlbPage,
+
   // Helpers
   useSeo,
   FyHeadLazy,

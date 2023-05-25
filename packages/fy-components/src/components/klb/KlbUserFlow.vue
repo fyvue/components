@@ -186,11 +186,12 @@ onMounted(async () => {
                   : ''
               "
             >
-              <a :href="field.link" v-if="field.link" class="a">{{
+              <a :href="field.link" v-if="field.link" class="link mb-3 btn">{{
                 field.label
               }}</a>
-              <span v-else>{{ field.label }}</span>
+              <span class="mb-2" v-else>{{ field.label }}</span>
             </h3>
+
             <template v-if="field.cat == 'input'">
               <template
                 v-if="
@@ -203,6 +204,7 @@ onMounted(async () => {
                   v-if="field.name"
                   :id="field.name"
                   :label="field.label"
+                  class="mb-2"
                   :placeholder="field.name == 'name' ? 'John Doe' : field.label"
                   :error="fieldsError[field.name]"
                   :type="field.type"
@@ -216,6 +218,7 @@ onMounted(async () => {
               <DefaultInput
                 v-if="field.name"
                 :id="field.name"
+                class="mb-2"
                 :label="field.label"
                 :error="fieldsError[field.name]"
                 :type="field.type"
@@ -271,7 +274,7 @@ onMounted(async () => {
               >{{ $t("recover_pwd_link") }}</a
             >
           </div>
-          <button class="btn primary btn-defaults mt-4">
+          <button class="btn primary medium mt-4">
             {{ $t("cta_login_next") }}
           </button>
         </template>

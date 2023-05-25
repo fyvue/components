@@ -2,40 +2,34 @@ import type { KlbAPIResult } from "../types/klb";
 import type { FetchResult } from "../types/utils";
 import { defineStore } from "pinia";
 
-type RequestResult = {
-  [key: number]: KlbAPIResult | undefined;
-};
-type FetchResult_ = {
-  [key: number]: FetchResult | undefined;
-};
-type RestSharedState = {
-  results: RequestResult;
-  fetchResults: FetchResult_;
+type SharedState = {
+  results: Record<number, KlbAPIResult | undefined>;
+  fetchResults: Record<number, FetchResult | undefined>;
 };
 
 export const useRestState = defineStore({
   id: "restState",
-  state: (): RestSharedState => ({
+  state: (): SharedState => ({
     results: {},
     fetchResults: {},
   }),
   actions: {
-    addFetchResult(key: number, result: FetchResult | undefined) {
+    addFetchResult(key: number, result: FetchResult) {
       this.fetchResults[key] = result;
     },
-    delFetchResult(key: number) {
+    removeFetchResult(key: number) {
       delete this.fetchResults[key];
     },
-    getFetchResultByHash(key: number) {
+    getFetchResult(key: number) {
       return this.fetchResults[key];
     },
-    addResult(key: number, result: KlbAPIResult | undefined) {
+    addResult(key: number, result: KlbAPIResult) {
       this.results[key] = result;
     },
-    delResult(key: number) {
+    removeResult(key: number) {
       delete this.results[key];
     },
-    getByHash(key: number) {
+    getResult(key: number) {
       return this.results[key];
     },
   },

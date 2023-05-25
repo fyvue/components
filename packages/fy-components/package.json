@@ -1,6 +1,6 @@
 {
     "name": "@fy-/components",
-    "version": "0.0.71",
+    "version": "0.0.79",
     "author": "Florian 'Fy' Gasquez <m@fy.to>",
     "license": "MIT",
     "repository": {
@@ -34,8 +34,8 @@
         "@karpeleslab/klbfw": "0.1.x",
         "@vuelidate/core": "^2.0.x",
         "@vuelidate/validators": "^2.0.x",
-        "@vueuse/core": "^9.5.x",
-        "pinia": "2.0.x",
+        "@vueuse/core": "^10.x.x",
+        "pinia": "2.x.x",
         "vue": "^3.2.x",
         "vue-router": "^4.1.x"
     },

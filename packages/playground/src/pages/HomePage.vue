@@ -49,27 +49,5 @@ const checkBox = ref();
       ]"
       label="Test Select"
     />
-    <button
-      class="btn primary defaults mt-4"
-      @click="$eventBus.emit('testModal', true)"
-    >
-      open modal</button
-    ><br /><br />
-    <button class="btn accent large" @click="$eventBus.emit('testModal', true)">
-      open modal</button
-    ><br /><br />
-    <button
-      class="btn neutral medium"
-      @click="$eventBus.emit('testModal', true)"
-    >
-      open modal</button
-    ><br /><br />
-    <button
-      class="btn valid defaults"
-      @click="$eventBus.emit('testModal', true)"
-    >
-      open modal</button
-    ><br /><br />
-    <a href="#" class="btn link">Test link</a>
   </div>
 </template>

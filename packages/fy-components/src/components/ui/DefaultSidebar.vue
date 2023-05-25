@@ -33,13 +33,13 @@ const isOpen = useStorage(`isOpenSidebar-${props.id}`, true);
   <aside class="fui-sidebar" :class="isOpen ? '' : 'fui-sidebar__md'">
     <div class="fui-sidebar__controller">
       <button
-        class="btn neutral"
+        class="btn neutral defaults"
         aria-controls="side-nav"
         @click="isOpen = !isOpen"
       >
         <ArrowLeftIcon v-if="isOpen" />
         <ArrowRightIcon v-else />
-        <span class="fui-sr-only">Controls Sidebar Size</span>
+        <span class="sr-only">Controls Sidebar Size</span>
       </button>
     </div>
     <slot name="before"></slot>
@@ -55,7 +55,7 @@ const isOpen = useStorage(`isOpenSidebar-${props.id}`, true);
           </div>
           <component :is="link.icon" v-if="link.icon" />
           <span>{{ link.name }}</span>
-          <span class="fui-sr-only">{{ link.name }}</span>
+          <span class="sr-only">{{ link.name }}</span>
         </RouterLink>
       </li>
       <slot name="lis"></slot>

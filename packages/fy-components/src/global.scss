@@ -27,5 +27,8 @@
   }
   &.link {
     @apply underline-offset-4 hover:underline text-fv-primary-900 dark:text-fv-primary-200;
+    &.router-link-exact-active {
+      @apply font-semibold;
+    }
   }
 }

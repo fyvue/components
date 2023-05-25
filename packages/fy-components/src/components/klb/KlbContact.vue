@@ -76,6 +76,7 @@ onUnmounted(() => {
         <DefaultInput
           id="emailLogin"
           :req="true"
+          class="mb-4"
           :showLabel="true"
           :placeholder="$t('klb_contact_form_place_holder_email')"
           autocomplete="email"
@@ -90,6 +91,7 @@ onUnmounted(() => {
           id="fullName"
           :req="true"
           :showLabel="true"
+          class="mb-4"
           :placeholder="$t('klb_contact_form_label_fullname')"
           autocomplete="name"
           :disabled="isAuth"
@@ -102,6 +104,7 @@ onUnmounted(() => {
         <DefaultInput
           id="subject"
           :req="true"
+          class="mb-4"
           :showLabel="true"
           :placeholder="$t('klb_contact_form_place_holder_subject')"
           :errorVuelidate="v$.contact.subject.$errors"
@@ -113,6 +116,7 @@ onUnmounted(() => {
         <DefaultInput
           id="message"
           :req="true"
+          class="mb-4"
           :showLabel="true"
           :placeholder="$t('klb_contact_form_place_holder_message')"
           :errorVuelidate="v$.contact.message.$errors"
@@ -127,7 +131,7 @@ onUnmounted(() => {
         >
           {{ globalFormError }}
         </p>
-        <button class="btn primary mt-4 big" type="submit">
+        <button class="btn primary mt-4 large" type="submit">
           {{ $t("klb_contact_cta") }}
         </button>
       </div>

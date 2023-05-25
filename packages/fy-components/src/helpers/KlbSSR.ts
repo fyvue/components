@@ -1,7 +1,7 @@
+import { useRestState } from "../stores/rest";
 import { KlbAPIResult } from "../types/klb";
 import { FetchResult } from "../types/utils";
 import { stringHash, isServerRendered, SSRRender } from "@fy-/core";
-import { useRestState } from "../stores/rest";
 import {
   rest as _rest,
   getMode,
@@ -10,128 +10,98 @@ import {
   getUrl,
 } from "@karpeleslab/klbfw";
 
-export interface SSROptions {
-  url: string | null;
+interface FetchError extends Error {
+  status?: number;
+  fvReject?: boolean;
 }
 
-export function restFetch<ResultType extends FetchResult>(
+export async function restFetch<ResultType extends FetchResult>(
   url: string,
   method: string = "GET",
   params: object = {},
-  headers: Headers = new Headers()
+  headers: Headers = new Headers({ "Content-Type": "application/json" })
 ): Promise<ResultType> {
-  let _params: any = params;
-  let _url: string = url;
-  if (method == "POST") {
-    _params = JSON.stringify(params);
-    _url = url;
-  } else if (method == "GET") {
-    _params = "";
-    if (params) {
-      _params = "?" + new URLSearchParams(params as Record<string, string>);
-    }
-    if (_params == "?") _params = "";
-    _url = `${url}${_params}`;
-  }
-  const requestHash = stringHash(`${_url}${method}${_params}`);
   const restState = useRestState();
-  if (isServerRendered() && restState.getFetchResultByHash(requestHash)) {
-    const result = {
-      ...restState.getFetchResultByHash(requestHash),
-    } as ResultType;
-    restState.delFetchResult(requestHash);
-    return new Promise<ResultType>((resolve, reject) => {
-      if (result.fvReject) {
-        delete result.fvReject;
-        reject(result);
-      } else resolve(result);
-    });
+  const formattedParams = method === "POST" ? JSON.stringify(params) : "";
+  const urlParams =
+    method === "GET" && params
+      ? "?" + new URLSearchParams(params as Record<string, string>)
+      : "";
+  const formattedUrl = `${url}${urlParams}`;
+  const requestHash = stringHash(`${formattedUrl}${method}${formattedParams}`);
+
+  if (isServerRendered() && restState.getFetchResult(requestHash)) {
+    const result = { ...restState.getFetchResult(requestHash) } as ResultType;
+    restState.removeFetchResult(requestHash);
+    return result.fvReject ? Promise.reject(result) : Promise.resolve(result);
   }
-  //const headers = new Headers();
-  headers.set("Content-Type", "application/json");
 
-  return new Promise<ResultType>((resolve, reject) => {
-    fetch(_url, {
-      method: method,
-      body: method == "POST" ? _params : undefined,
+  try {
+    const response = await fetch(formattedUrl, {
+      method,
+      body: formattedParams ? formattedParams : undefined,
       headers,
-    })
-      .catch((err) => {
-        const _res: FetchResult = {
-          //raw: err,
-          data: err,
-          status: err.status,
-        };
+    });
+    const data = await response.json();
+    const result: FetchResult = { data, status: response.status };
 
-        if (getMode() == "ssr") {
-          _res.fvReject = true;
-          restState.addFetchResult(requestHash, _res);
-        }
-        reject(_res as ResultType);
-      })
-      .then((res) => {
-        if (res) {
-          const _res: FetchResult = {
-            //raw: res,
-            data: undefined,
-            status: res.status,
-          };
+    if (getMode() === "ssr") {
+      restState.addFetchResult(requestHash, result);
+    }
+    return result as ResultType;
+  } catch (err) {
+    const fetchError = err as FetchError;
 
-          res.json().then((data: any) => {
-            _res.data = data;
-            if (getMode() == "ssr") restState.addFetchResult(requestHash, _res);
-            resolve(_res as ResultType);
-          });
-        }
-      });
-  });
+    const result: FetchResult = {
+      data: fetchError,
+      status: fetchError.status || 500,
+      fvReject: getMode() === "ssr",
+    };
+
+    if (result.fvReject) {
+      restState.addFetchResult(requestHash, result);
+    }
+    return Promise.reject(result as ResultType);
+  }
 }
 
-export function rest<ResultType extends KlbAPIResult>(
+export async function rest<ResultType extends KlbAPIResult>(
   url: string,
   method: string = "GET",
   params: object = {},
   ctx: object = {}
 ): Promise<ResultType> {
-  const requestHash = stringHash(url + method + JSON.stringify(params));
   const restState = useRestState();
-  if (isServerRendered() && restState.results[requestHash]) {
-    const result = { ...restState.getByHash(requestHash) } as ResultType;
-    restState.delResult(requestHash);
-    return new Promise<ResultType>((resolve, reject) => {
-      if (result.fvReject) {
-        delete result.fvReject;
-        reject(result);
-      } else resolve(result);
-    });
+  const requestHash = stringHash(url + method + JSON.stringify(params));
+
+  if (isServerRendered() && restState.getResult(requestHash)) {
+    const result = { ...restState.getResult(requestHash) } as ResultType;
+    restState.removeResult(requestHash);
+    return result.fvReject ? Promise.reject(result) : Promise.resolve(result);
   }
 
-  return new Promise<ResultType>((resolve, reject) => {
-    _rest(url, method, params, ctx)
-      .then((restResult: ResultType) => {
-        if (getMode() == "ssr") restState.addResult(requestHash, restResult);
-        resolve(restResult);
-      })
-      .catch((err: ResultType) => {
-        if (getMode() == "ssr") {
-          err.fvReject = true;
-          restState.addResult(requestHash, err);
-        }
-        reject(err);
-      });
-  });
+  try {
+    const restResult: ResultType = await _rest(url, method, params, ctx);
+    if (getMode() === "ssr") {
+      restState.addResult(requestHash, restResult);
+    }
+    return restResult;
+  } catch (err) {
+    const fetchError = err as FetchError;
+
+    if (getMode() === "ssr") {
+      fetchError.fvReject = true;
+      restState.addResult(requestHash, fetchError as unknown as ResultType);
+    }
+    return Promise.reject(err);
+  }
 }
 export async function handleSSR(
   createApp: Function,
   cb: Function,
-  options: SSROptions = { url: null }
+  options: { url?: string } = {}
 ) {
-  let url: string;
-  if (options.url) url = options.url;
-  else {
-    //url = `${getPath()}`;
-    const query = getUrl().query;
-    url = `${getPath()}${query ? `?${query}` : ""}`;
-  }
+  const url =
+    options.url || `${getPath()}${getUrl().query ? `?${getUrl().query}` : ""}`;
   return SSRRender(createApp, url, cb, getUuid());
 }

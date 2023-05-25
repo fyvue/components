@@ -7,9 +7,9 @@ import {
 import { createFyCore } from "@fy-/core";
 import { createFyHead } from "@fy-/head";
 import { createPinia } from "pinia";
-
+import { getPrefix } from "@karpeleslab/klbfw";
 import routes from "./routes";
-import App from './AppSuspender.vue';
+import App from "./AppSuspender.vue";
 import "./style.scss";
 export const createApp = async (isSSR = false) => {
   const pinia = createPinia();
@@ -17,7 +17,9 @@ export const createApp = async (isSSR = false) => {
   const fycore = createFyCore();
   const app = isSSR ? createSSRApp(App) : createRegularApp(App);
   const router = createRouter({
-    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+    history: import.meta.env.SSR
+      ? createMemoryHistory(getPrefix())
+      : createWebHistory(getPrefix()),
     routes,
     scrollBehavior(to) {
       if (to.hash) {
@@ -36,4 +38,4 @@ export const createApp = async (isSSR = false) => {
   app.use(pinia);
 
   return { app, router, head, pinia };
-}
+};

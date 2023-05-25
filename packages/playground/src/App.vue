@@ -1,16 +1,65 @@
 <script setup lang="ts">
-
+const components = [
+  { link: "/docs/modal", title: "Modal" },
+  { link: "/docs/breadcrumb", title: "Breadcrumb" },
+  { link: "/docs/paging", title: "Paging" },
+  { link: "/docs/inputs", title: "Inputs" },
+  { link: "/docs/sidebar", title: "Sidebar" },
+  { link: "/docs/table", title: "Table" },
+];
+const css = [{ link: "/docs/buttons", title: "Buttons" }];
+components.sort((a, b) => a.title.localeCompare(b.title));
+css.sort((a, b) => a.title.localeCompare(b.title));
 </script>
 <template>
-    <div>
-        <RouterView v-slot="{ Component }">
-        <Suspense timeout="0">
-          <component :is="Component" />
-          <template #fallback>
-            <div>Fallback...</div>
-            <!--<DefaultLoader id="app-router-suspender" :force="true" />-->
-          </template>
-        </Suspense>
-      </RouterView>
+  <div>
+    <div class="w-full px-4 mx-auto max-w-8xl">
+      <div class="lg:flex">
+        <aside
+          id="sidebar"
+          class="fixed inset-0 z-20 flex-none hidden h-full w-72 lg:static lg:h-auto lg:overflow-y-visible py-4 lg:w-48 lg:block border-r"
+          aria-labelledby="sidebar-label"
+        >
+          <h2
+            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+          >
+            CSS
+          </h2>
+          <ul class="py-1 pl-1 list-unstyled fw-normal small mb-4">
+            <li v-for="(link, i) in css" :key="`link-${i}`">
+              <RouterLink class="btn link" :to="link.link">
+                {{ link.title }}</RouterLink
+              >
+            </li>
+          </ul>
+          <h2
+            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+          >
+            Components
+          </h2>
+          <ul class="py-1 pl-1 list-unstyled fw-normal small mb-4">
+            <li v-for="(link, i) in components" :key="`link-${i}`">
+              <RouterLink class="btn link" :to="link.link">
+                {{ link.title }}</RouterLink
+              >
+            </li>
+          </ul>
+        </aside>
+        <main
+          id="content-wrapper"
+          class="flex-auto w-full min-w-0 lg:static lg:max-h-full lg:overflow-visible p-4"
+        >
+          <RouterView v-slot="{ Component }">
+            <Suspense timeout="0">
+              <component :is="Component" />
+              <template #fallback>
+                <div>Fallback...</div>
+                <!--<DefaultLoader id="app-router-suspender" :force="true" />-->
+              </template>
+            </Suspense>
+          </RouterView>
+        </main>
+      </div>
     </div>
+  </div>
 </template>

@@ -191,7 +191,7 @@ defineExpose({ focus, getInputRef });
               target="_blank"
               v-if="linkIcon"
             >
-              <LinkIcon />
+              <LinkIcon class="w-4 h-4" />
             </a>
           </label>
           <p
