@@ -245,7 +245,10 @@ onMounted(async () => {
         </button>
       </template>
     </div>
-    <div v-if="editMode" class="mt-4 py-2 border-b border-t">
+    <div
+      v-if="editMode"
+      class="mt-4 py-2 border-b border-t border-fv-neutral-500/[0.5]"
+    >
       <div>
         <form @submit.prevent="submitLocation">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
