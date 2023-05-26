@@ -38,11 +38,12 @@ const isLinkActive = (link: NavLink) => {
         <img :src="siteLogo" v-if="siteLogo" class="h-8 mr-3" :alt="siteName" />
         <span
           class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-          >{{ siteName }}</span
         >
+          <slot name="title">{{ siteName }}</slot>
+        </span>
       </RouterLink>
       <div class="flex items-center md:order-2">
-        <slot name="custom"> - </slot>
+        <slot name="custom"></slot>
       </div>
       <div
         class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
