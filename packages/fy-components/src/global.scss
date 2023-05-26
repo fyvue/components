@@ -38,3 +38,6 @@
 .input-label {
   @apply block mb-2 text-sm font-medium text-fv-neutral-900 dark:text-white;
 }
+.form-error-label {
+  @apply text-red-700 dark:text-red-400;
+}

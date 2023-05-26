@@ -61,7 +61,6 @@ let stripe: any;
 let stripeElements: any;
 const paymentSetupIntent = ref<KlbAPISetupIntent>();
 const stripePayment = ref();
-const billingWatcher = ref<WatchStopHandle>();
 
 const model = computed({
   get: () => props.modelValue,

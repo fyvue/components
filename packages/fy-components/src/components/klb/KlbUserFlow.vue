@@ -166,7 +166,11 @@ onMounted(async () => {
 </script>
 <template>
   <ClientOnly>
-    <form @submit.prevent="userFlow()" v-if="!completed" class="klb-login">
+    <form
+      @submit.prevent="userFlow()"
+      v-if="!completed"
+      class="klb-login w-full"
+    >
       <!--<FyLoader id="klblogin" />-->
       <div class="w-full">
         <h2
@@ -204,7 +208,7 @@ onMounted(async () => {
                   v-if="field.name"
                   :id="field.name"
                   :label="field.label"
-                  class="mb-2"
+                  class="mt-3"
                   :placeholder="field.name == 'name' ? 'John Doe' : field.label"
                   :error="fieldsError[field.name]"
                   :type="field.type"
@@ -218,7 +222,7 @@ onMounted(async () => {
               <DefaultInput
                 v-if="field.name"
                 :id="field.name"
-                class="mb-2"
+                class="mt-3"
                 :label="field.label"
                 :error="fieldsError[field.name]"
                 :type="field.type"

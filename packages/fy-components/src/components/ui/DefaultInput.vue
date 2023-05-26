@@ -93,7 +93,7 @@ defineExpose({ focus, getInputRef });
         v-if="label"
         class="block mb-2 text-sm font-medium text-fv-neutral-900 dark:text-white"
         :class="{
-          'text-red-700 dark:text-red-500': checkErrors,
+          'text-red-700 dark:text-red-400': checkErrors,
         }"
       >
         {{ label }}
@@ -112,7 +112,7 @@ defineExpose({ focus, getInputRef });
         "
         class="bg-fv-neutral-50 border border-fv-neutral-300 text-fv-neutral-900 text-sm rounded-lg focus:ring-fv-primary-500 focus:border-fv-primary-500 block w-full p-2.5 dark:bg-fv-neutral-700 dark:border-fv-neutral-600 dark:placeholder-fv-neutral-400 dark:text-white dark:focus:ring-fv-primary-500 dark:focus:border-fv-primary-500"
         :class="{
-          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-400 dark:placeholder-red-500 dark:border-red-500':
             checkErrors,
         }"
         ref="inputRef"
@@ -131,7 +131,7 @@ defineExpose({ focus, getInputRef });
         v-if="type == 'textarea'"
         class="min-h-[6rem] bg-fv-neutral-50 border border-fv-neutral-300 text-fv-neutral-900 text-sm rounded-lg focus:ring-fv-primary-500 focus:border-fv-primary-500 block w-full p-2.5 dark:bg-fv-neutral-700 dark:border-fv-neutral-600 dark:placeholder-fv-neutral-400 dark:text-white dark:focus:ring-fv-primary-500 dark:focus:border-fv-primary-500"
         :class="{
-          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-400 dark:placeholder-red-500 dark:border-red-500':
             checkErrors,
         }"
         :autocomplete="autocomplete"
@@ -150,7 +150,7 @@ defineExpose({ focus, getInputRef });
         :id="id"
         ref="inputRef"
         :class="{
-          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500':
+          'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-400 dark:placeholder-red-500 dark:border-red-500':
             checkErrors,
         }"
         class="bg-fv-neutral-50 border border-fv-neutral-300 text-fv-neutral-900 text-sm rounded-lg focus:ring-fv-primary-500 focus:border-fv-primary-500 block w-full p-2.5 dark:bg-fv-neutral-700 dark:border-fv-neutral-600 dark:placeholder-fv-neutral-400 dark:text-white dark:focus:ring-fv-primary-500 dark:focus:border-fv-primary-500"
@@ -182,7 +182,7 @@ defineExpose({ focus, getInputRef });
             class="font-medium text-fv-neutral-900 dark:text-fv-neutral-300"
             v-if="label"
             :class="{
-              'text-red-600 dark:text-red-500': checkErrors,
+              'text-red-600 dark:text-red-400': checkErrors,
             }"
             >{{ label }}
             <a
