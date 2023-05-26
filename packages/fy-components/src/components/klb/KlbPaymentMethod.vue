@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  ref,
-  onMounted,
-  computed,
-  reactive,
-  watch,
-  WatchStopHandle,
-  onUnmounted,
-} from "vue";
+import { ref, onMounted, computed, reactive, watch } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import { getLocale, getUrl, getPath } from "@karpeleslab/klbfw";
@@ -356,7 +348,10 @@ useFyHead({
         {{ $t("klb_add_new_billing_profile") }}
       </button>
     </div>
-    <div v-if="editMode" class="mt-4 py-2 border-b border-t">
+    <div
+      v-if="editMode"
+      class="mt-4 py-2 border-b border-t border-fv-neutral-500/[0.5]"
+    >
       <div>
         <form @submit.prevent="submitUserBilling">
           <DefaultInput

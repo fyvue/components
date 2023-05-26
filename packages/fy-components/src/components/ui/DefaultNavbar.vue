@@ -32,7 +32,7 @@ const isLinkActive = (link: NavLink) => {
 };
 </script>
 <template>
-  <nav class="bg-white border-fv-neutral-200 dark:bg-fv-neutral-900">
+  <nav class="">
     <div class="w-full flex flex-wrap items-center justify-between mx-auto p-4">
       <RouterLink to="/" class="flex items-center" v-if="siteName">
         <img :src="siteLogo" v-if="siteLogo" class="h-8 mr-3" :alt="siteName" />
@@ -50,17 +50,17 @@ const isLinkActive = (link: NavLink) => {
         id="mobile-menu-2"
       >
         <ul
-          class="flex relative flex-col font-medium p-4 md:p-0 mt-4 border border-fv-neutral-100 rounded-lg bg-fv-neutral-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-fv-neutral-800 md:dark:bg-fv-neutral-900 dark:border-fv-neutral-700"
+          class="flex relative flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0"
         >
           <li v-for="link in links" :key="`nav-${link.to}`">
             <template v-if="!link.childrens || link.childrens.length == 0">
               <RouterLink
                 :to="link.to"
                 :title="link.name"
-                class="block py-2 pl-3 pr-4 text-white bg-fv-neutral-700 rounded md:bg-transparent md:text-fv-neutral-700 md:p-0 md:dark:text-fv-neutral-500 dark:bg-fv-neutral-600 md:dark:bg-transparent"
+                class="block py-2 pl-3 pr-4 text-white md:text-fv-neutral-700 md:p-0 md:dark:text-fv-neutral-500"
                 aria-current="page"
                 :class="{
-                  'bg-fv-primary-700  md:text-fv-primary-700 md:dark:text-fv-primary-500 dark:bg-fv-primary-600':
+                  'md:text-fv-primary-700 md:dark:text-fv-primary-500 ':
                     isLinkActive(link),
                 }"
               >
@@ -70,9 +70,9 @@ const isLinkActive = (link: NavLink) => {
             <template v-else>
               <Menu>
                 <MenuButton
-                  class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-white bg-fv-neutral-700 rounded md:bg-transparent md:text-fv-neutral-700 md:p-0 md:dark:text-fv-neutral-500 dark:bg-fv-neutral-600 md:dark:bg-transparent"
+                  class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-white md:text-fv-neutral-700 md:p-0 md:dark:text-fv-neutral-500"
                   :class="{
-                    'bg-fv-primary-700  md:text-fv-primary-700 md:dark:text-fv-primary-500 dark:bg-fv-primary-600':
+                    'md:text-fv-primary-700 md:dark:text-fv-primary-500 ':
                       isLinkActive(link),
                   }"
                 >
