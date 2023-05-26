@@ -2,6 +2,7 @@
 import { i18nextPromise } from "@fy-/core";
 import { Backend } from "@karpeleslab/i18next-klb-backend";
 import { KlbUseStore, KlbUseUserCheck } from "@fy-/components";
+import { DefaultNavbar } from "@fy-/components";
 import { computed } from "vue";
 await i18nextPromise(Backend);
 const klbStore = KlbUseStore();
@@ -29,6 +30,28 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
 </script>
 <template>
   <div>
+    <header
+      class="border-b border-fv-neutral-200 dark:border-fv-neutral-600 dark:bg-fv-neutral-800"
+    >
+      <DefaultNavbar
+        siteName="@fy-/components"
+        siteLogo="/logo.svg"
+        loginPage="/docs/klbuserflow"
+        :links="[
+          { to: '/', name: 'Getting Started' },
+          {
+            to: '#',
+            name: 'SSR',
+            childrens: [
+              { to: '/ssr', name: 'Getting Started' },
+              { to: '/ssr/rest', name: 'Rest' },
+              { to: '/ssr/router', name: 'Router' },
+            ],
+          },
+          { to: '/contact', name: 'Contact' },
+        ]"
+      ></DefaultNavbar>
+    </header>
     <div class="w-full px-4 mx-auto max-w-8xl">
       <div class="lg:flex">
         <aside
@@ -37,7 +60,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
           aria-labelledby="sidebar-label"
         >
           <h2
-            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+            class="mb-1 text-sm font-semibold tracking-wide text-fv-neutral-900 uppercase lg:text-xs dark:text-white"
           >
             CSS
           </h2>
@@ -49,7 +72,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
             </li>
           </ul>
           <h2
-            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+            class="mb-1 text-sm font-semibold tracking-wide text-fv-neutral-900 uppercase lg:text-xs dark:text-white"
           >
             Components
           </h2>
@@ -61,7 +84,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
             </li>
           </ul>
           <h2
-            class="mb-1 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs dark:text-white"
+            class="mb-1 text-sm font-semibold tracking-wide text-fv-neutral-900 uppercase lg:text-xs dark:text-white"
           >
             KLB
           </h2>

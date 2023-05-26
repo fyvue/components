@@ -13,6 +13,7 @@ import DefaultPaging from "./components/ui/DefaultPaging.vue";
 import DefaultBreadcrumb from "./components/ui/DefaultBreadcrumb.vue";
 import DefaultSidebar from "./components/ui/DefaultSidebar.vue";
 import DefaultStepper from "./components/ui/DefaultStepper.vue";
+import DefaultNavbar from "./components/ui/DefaultNavbar.vue";
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
 import KlbPage from "./components/klb/KlbPage.vue";
@@ -29,6 +30,7 @@ export {
   DefaultBreadcrumb,
   DefaultSidebar,
   DefaultStepper,
+  DefaultNavbar,
 
   // KLB
   KlbUseStore,
