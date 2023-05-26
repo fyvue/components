@@ -30,6 +30,16 @@ export default [
     component: () => import("@/pages/docs/KlbContactPage.vue"),
   },
   {
+    path: "/docs/klblocation",
+    name: "docs_klblocation",
+    component: () => import("@/pages/docs/KlbLocationPage.vue"),
+  },
+  {
+    path: "/docs/klbpaymentmethod",
+    name: "docs_klbpaymentmethod",
+    component: () => import("@/pages/docs/KlbPaymentMethodPage.vue"),
+  },
+  {
     path: "/docs/klbpage/:slug",
     name: "docs_klbpage",
     component: () => import("@/pages/docs/KlbPagePage.vue"),

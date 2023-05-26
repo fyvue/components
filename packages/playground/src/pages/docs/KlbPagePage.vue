@@ -36,7 +36,7 @@ const examples = `<template>
         class="bg-fv-primary-50 rounded shadow-xs flex items-center px-2 py-1"
       ></div>
       <div class="bg-fv-neutral-700 mt-4 p-3 rounded shadow text-white text-sm">
-        <pre>{{ examples.replace('_script_', '<script setup lang="ts">').replace('_script_end_', '</script>') }}</pre>
+        <pre>{{ $cleanScript(examples) }}</pre>
       </div>
     </div>
   </div>

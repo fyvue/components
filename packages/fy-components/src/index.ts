@@ -23,6 +23,7 @@ import KlbContact from "./components/klb/KlbContact.vue";
 import KlbPage from "./components/klb/KlbPage.vue";
 import KlbNavbar from "./components/klb/KlbNavbar.vue";
 import KlbLocation from "./components/klb/KlbLocation.vue";
+import KlbPaymentMethod from "./components/klb/KlbPaymentMethod.vue";
 
 import type { FyHeadLazy } from "./types/utils";
 import "./global.scss";
@@ -51,6 +52,7 @@ export {
   KlbPage,
   KlbNavbar,
   KlbLocation,
+  KlbPaymentMethod,
 
   // Helpers
   useSeo,

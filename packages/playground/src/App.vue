@@ -28,6 +28,8 @@ const klb = [
   { link: "/docs/klbuserflow", title: "KlbUserFlow" },
   { link: "/docs/klbpage/test", title: "KlbPage" },
   { link: "/docs/klbcontact", title: "KlbContact" },
+  { link: "/docs/klblocation", title: "KlbLocation" },
+  { link: "/docs/klbpaymentmethod", title: "KlbPaymentMethod" },
 ];
 components.sort((a, b) => a.title.localeCompare(b.title));
 css.sort((a, b) => a.title.localeCompare(b.title));

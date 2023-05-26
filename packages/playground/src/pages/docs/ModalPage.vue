@@ -52,7 +52,7 @@ const examples = `<template>
         </button>
       </div>
       <div class="bg-fv-neutral-700 mt-4 p-3 rounded shadow text-white text-sm">
-        <pre>{{ examples.replace('_script_', '<script setup lang="ts">').replace('_script_end_', '</script>') }}</pre>
+        <pre>{{ $cleanScript(examples) }}</pre>
       </div>
     </div>
   </div>

@@ -6,10 +6,12 @@ export type GlobalCountries = {
   byUuid: {
     [key: string]: KlbCountry;
   };
+  countriesOptions: string[][];
 };
 const countries: GlobalCountries = {
   countries: new Array<KlbCountry>(),
   byUuid: {},
+  countriesOptions: [],
 };
 const useCountries = () => {
   const vueInstance = getCurrentInstance();
@@ -24,6 +26,10 @@ const countriesPromise = () => {
           countries.countries = _countries.data;
           _countries.data.forEach((_country) => {
             countries.byUuid[_country.Country__] = _country;
+            countries.countriesOptions.push([
+              _country.Country__,
+              _country.Name,
+            ]);
           });
           vueInstance!.appContext.config.globalProperties.$countries =
             countries;

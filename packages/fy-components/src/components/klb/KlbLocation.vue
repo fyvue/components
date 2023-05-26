@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  ref,
-  onMounted,
-  computed,
-  reactive,
-  watch,
-  WatchStopHandle,
-  onUnmounted,
-} from "vue";
+import { ref, onMounted, computed, reactive, watch } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import {
@@ -16,7 +8,7 @@ import {
   KlbAPIUserLocation,
   KlbAPIResultUnknown,
 } from "../../types/klb";
-
+import InnerLoader from "../ui/InnerLoader.vue";
 import { useTranslation } from "@fy-/core";
 import { useKlbStore } from "../../stores/klb";
 import { rest as KlbRest } from "../../helpers/KlbSSR";
@@ -53,7 +45,6 @@ const model = computed({
     emit("update:modelValue", items);
   },
 });
-const locationWatcher = ref<WatchStopHandle>();
 
 const state = reactive({
   firstname: "",
@@ -167,58 +158,58 @@ const getUserLocation = async () => {
   isLoaded.value = true;
 };
 
-onMounted(async () => {
-  if (isAuth.value) {
-    locationWatcher.value = watch(currentSelectedLocation, async (v) => {
-      if (v == "new") {
-        state.firstname = "";
-        state.lastname = "";
-        state.zip = "";
-        state.country = "";
-        editMode.value = true;
-        location.value = undefined;
-        model.value = undefined;
-        await getUserGeolocation();
-      } else {
-        if (v && locations.value[v]) {
-          location.value = locations.value[v];
-          state.firstname = location.value.First_Name;
-          state.lastname = location.value.Last_Name;
-          state.zip = location.value.Zip ? location.value.Zip : "";
-          state.country = location.value.Country__;
-          model.value = location.value.User_Location__;
-        }
-      }
-    });
+watch(currentSelectedLocation, async (v) => {
+  if (v == "new") {
+    state.firstname = "";
+    state.lastname = "";
+    state.zip = "";
+    state.country = "";
+    editMode.value = true;
+    location.value = undefined;
+    model.value = undefined;
+    await getUserGeolocation();
+  } else {
+    if (v && locations.value[v]) {
+      location.value = locations.value[v];
+      state.firstname = location.value.First_Name;
+      state.lastname = location.value.Last_Name;
+      state.zip = location.value.Zip ? location.value.Zip : "";
+      state.country = location.value.Country__;
+      model.value = location.value.User_Location__;
+    }
+  }
+});
+watch(isAuth, async (v) => {
+  if (v) {
     await getUserLocation();
   }
 });
-onUnmounted(() => {
-  if (locationWatcher.value) locationWatcher.value();
+onMounted(async () => {
+  if (isAuth.value) {
+    await getUserLocation();
+  }
 });
 </script>
 <template>
-  <div
-    v-if="isAuth && isLoaded"
-    :class="displayOnly ? '' : 'card-container card-defaults klb-user-location'"
-  >
+  <div v-if="isAuth && isLoaded">
     <div class="inline-flex w-full gap-x-2">
       <DefaultInput
         id="selectLocation"
         :options="locationsSelectOptions"
         type="select"
         v-model="currentSelectedLocation"
+        class="flex-grow"
       />
       <template v-if="!displayOnly">
         <button
-          class="btn primary"
+          class="btn defaults primary"
           v-if="editMode == false"
           @click="editMode = true"
         >
           {{ $t("klb_edit_location") }}
         </button>
         <button
-          class="btn danger"
+          class="btn defaults danger"
           v-if="
             editMode == true && location && currentSelectedLocation != 'new'
           "
@@ -227,7 +218,7 @@ onUnmounted(() => {
           {{ $t("klb_delete_location") }}
         </button>
         <button
-          class="btn neutral"
+          class="btn defaults neutral"
           type="reset"
           @click="editMode = false"
           v-if="editMode == true"
@@ -235,9 +226,14 @@ onUnmounted(() => {
           {{ $t("klb_locations_reset_cta") }}
         </button>
         <button
-          class="btn primary"
+          class="btn defaults primary"
           type="reset"
-          @click="currentSelectedLocation = 'new'"
+          @click="
+            () => {
+              currentSelectedLocation = 'new';
+              editMode = true;
+            }
+          "
           v-if="
             async () => {
               editMode == false;
@@ -249,10 +245,10 @@ onUnmounted(() => {
         </button>
       </template>
     </div>
-    <div v-if="editMode" class="location-display">
+    <div v-if="editMode" class="mt-4 py-2 border-b border-t">
       <div>
         <form @submit.prevent="submitLocation">
-          <div class="form-grid">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
             <DefaultInput
               id="billingFirstname"
               :req="true"
@@ -283,32 +279,20 @@ onUnmounted(() => {
               v-model="state.zip"
               :label="$t('klb_location_zip_label')"
             ></DefaultInput>
-            <div class="fui-input">
-              <div class="mr-4 w-16">
-                <label class="fui-input__label" for="countryChoice"
-                  >{{ $t("klb_location_country_label") }}
-                </label>
-              </div>
-              <div class="fui-input__box">
-                <select
-                  class="fui-input__input"
-                  id="countryChoice"
-                  v-model="state.country"
-                >
-                  <option
-                    :value="country.Country__"
-                    v-for="country in countries.countries"
-                    v-bind:key="country.Country__"
-                  >
-                    {{ country.Name }}
-                  </option>
-                </select>
-              </div>
-            </div>
+            <DefaultInput
+              id="billingCountry"
+              :req="true"
+              type="select"
+              :showLabel="true"
+              :label="$t('klb_location_country_label')"
+              v-model="state.country"
+              :errorVuelidate="v$.country.$errors"
+              :options="countries.countriesOptions"
+            ></DefaultInput>
           </div>
           <br />
           <div class="btn-box">
-            <button class="btn-defaults btn primary" type="submit">
+            <button class="medium btn primary" type="submit">
               {{ $t("klb_locations_save_cta") }}
             </button>
           </div>
@@ -316,7 +300,6 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
-  <div class="self-loader-fyvue" v-if="!isLoaded && isAuth">
-    {{ $t("global_loading") }}
-  </div>
+
+  <InnerLoader v-if="!isLoaded && isAuth" />
 </template>

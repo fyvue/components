@@ -35,3 +35,6 @@
     }
   }
 }
+.input-label {
+  @apply block mb-2 text-sm font-medium text-fv-neutral-900 dark:text-white;
+}

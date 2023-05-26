@@ -36,6 +36,11 @@ export const createApp = async (isSSR = false) => {
   app.use(fycore);
   app.use(head);
   app.use(pinia);
+  app.config.globalProperties.$cleanScript = (txt: string) => {
+    return txt
+      .replace("_script_", '<script setup lang="ts">')
+      .replace("_script_end_", "</script>");
+  };
 
   return { app, router, head, pinia };
 };
