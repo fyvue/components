@@ -1,0 +1,37 @@
+import { rest as KlbRest } from "../helpers/KlbSSR";
+import { getCurrentInstance } from "vue";
+import type { KlbCountry, KlbAPICountry } from "../types/klb";
+export type GlobalCountries = {
+  countries: Array<KlbCountry>;
+  byUuid: {
+    [key: string]: KlbCountry;
+  };
+};
+const countries: GlobalCountries = {
+  countries: new Array<KlbCountry>(),
+  byUuid: {},
+};
+const useCountries = () => {
+  const vueInstance = getCurrentInstance();
+  return vueInstance!.appContext.config.globalProperties.$countries;
+};
+const countriesPromise = () => {
+  const vueInstance = getCurrentInstance();
+  return new Promise((resolve) => {
+    KlbRest<KlbAPICountry>("Country", "GET")
+      .then((_countries) => {
+        if (_countries && _countries.result == "success") {
+          countries.countries = _countries.data;
+          _countries.data.forEach((_country) => {
+            countries.byUuid[_country.Country__] = _country;
+          });
+          vueInstance!.appContext.config.globalProperties.$countries =
+            countries;
+        }
+        resolve(true);
+      })
+      .catch(() => {});
+  });
+};
+
+export { countriesPromise, useCountries, countries };
