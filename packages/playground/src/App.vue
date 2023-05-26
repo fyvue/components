@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { i18nextPromise } from "@fy-/core";
 import { Backend } from "@karpeleslab/i18next-klb-backend";
-import { KlbUseStore, KlbUseUserCheck } from "@fy-/components";
-import { DefaultNavbar } from "@fy-/components";
+import {
+  KlbUseStore,
+  KlbUseUserCheck,
+  KlbcountriesPromise,
+} from "@fy-/components";
+import { KlbNavbar } from "@fy-/components";
 import { computed } from "vue";
 await i18nextPromise(Backend);
+await KlbcountriesPromise();
 const klbStore = KlbUseStore();
 const isAuth = computed(() => klbStore.isAuth);
 if (!import.meta.env.SSR) {
@@ -33,7 +38,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
     <header
       class="border-b border-fv-neutral-200 dark:border-fv-neutral-600 dark:bg-fv-neutral-800"
     >
-      <DefaultNavbar
+      <KlbNavbar
         siteName="@fy-/components"
         siteLogo="/logo.svg"
         loginPage="/docs/klbuserflow"
@@ -50,7 +55,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
           },
           { to: '/contact', name: 'Contact' },
         ]"
-      ></DefaultNavbar>
+      ></KlbNavbar>
     </header>
     <div class="w-full px-4 mx-auto max-w-8xl">
       <div class="lg:flex">

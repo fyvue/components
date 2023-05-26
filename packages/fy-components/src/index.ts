@@ -6,6 +6,10 @@ import {
 import { useKlbStore as KlbUseStore } from "./stores/klb";
 import { useSeo } from "./composables/useSeo";
 import { useUserCheck as KlbUseUserCheck } from "./composables/useUserCheck";
+import {
+  useCountries as KlbUseCountries,
+  countriesPromise as KlbcountriesPromise,
+} from "./composables/useCountries";
 import DefaultTable from "./components/ui/DefaultTable.vue";
 import DefaultInput from "./components/ui/DefaultInput.vue";
 import DefaultModal from "./components/ui/DefaultModal.vue";
@@ -17,6 +21,8 @@ import DefaultNavbar from "./components/ui/DefaultNavbar.vue";
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
 import KlbPage from "./components/klb/KlbPage.vue";
+import KlbNavbar from "./components/klb/KlbNavbar.vue";
+import KlbLocation from "./components/klb/KlbLocation.vue";
 
 import type { FyHeadLazy } from "./types/utils";
 import "./global.scss";
@@ -38,9 +44,13 @@ export {
   KlbHandleSSR,
   KlbRestFetch,
   KlbRest,
+  KlbcountriesPromise,
+  KlbUseCountries,
   KlbContact,
   KlbUserFlow,
   KlbPage,
+  KlbNavbar,
+  KlbLocation,
 
   // Helpers
   useSeo,
