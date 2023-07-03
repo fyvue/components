@@ -15,6 +15,11 @@ export default [
     component: () => import("@/pages/docs/BreadcrumbPage.vue"),
   },
   {
+    path: "/docs/table",
+    name: "docs_table",
+    component: () => import("@/pages/docs/TablePage.vue"),
+  },
+  {
     path: "/docs/modal",
     name: "docs_modal",
     component: () => import("@/pages/docs/ModalPage.vue"),

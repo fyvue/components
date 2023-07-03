@@ -67,3 +67,13 @@ export interface StepperSteps {
   list: StepperStep[];
   current: number;
 }
+export interface ConfirmModalData {
+  title: string;
+  desc: string;
+  onConfirm: Function;
+}
+
+export interface FetchError extends Error {
+  status?: number;
+  fvReject?: boolean;
+}

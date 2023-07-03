@@ -91,12 +91,12 @@ defineExpose({ focus, getInputRef });
       <label
         :for="id"
         v-if="label"
-        class="block mb-2 text-sm font-medium text-fv-neutral-900 dark:text-white"
+        class="block mb-0.5 text-sm font-semibold text-fv-neutral-900 dark:text-white"
         :class="{
           'text-red-700 dark:text-red-400': checkErrors,
         }"
       >
-        {{ label }}
+        {{ label }} <span v-if="req" class="text-red-700">*</span>
       </label>
       <input
         v-if="

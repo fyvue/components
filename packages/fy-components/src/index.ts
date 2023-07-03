@@ -4,6 +4,7 @@ import {
   handleSSR as KlbHandleSSR,
 } from "./helpers/KlbSSR";
 import { useKlbStore as KlbUseStore } from "./stores/klb";
+import { useRestState } from "./stores/rest";
 import { useSeo } from "./composables/useSeo";
 import { useUserCheck as KlbUseUserCheck } from "./composables/useUserCheck";
 import {
@@ -19,6 +20,7 @@ import DefaultBreadcrumb from "./components/ui/DefaultBreadcrumb.vue";
 import DefaultSidebar from "./components/ui/DefaultSidebar.vue";
 import DefaultStepper from "./components/ui/DefaultStepper.vue";
 import DefaultNavbar from "./components/ui/DefaultNavbar.vue";
+import DefaultConfirm from "./components/ui/DefaultConfirm.vue";
 // KLB
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
@@ -31,6 +33,8 @@ import KlbUpdatePassword from "./components/klb/KlbUpdatePassword.vue";
 import KlbUpdateEmail from "./components/klb/KlbUpdateEmail.vue";
 // MISC
 import type { FyHeadLazy } from "./types/utils";
+import type { FetchResult, FetchError } from "./types/utils";
+import type { KlbAPIResult } from "./types/klb";
 import "./global.scss";
 
 export {
@@ -43,6 +47,7 @@ export {
   DefaultSidebar,
   DefaultStepper,
   DefaultNavbar,
+  DefaultConfirm,
 
   // KLB
   KlbUseStore,
@@ -61,6 +66,10 @@ export {
   KlbBillingHistory,
   KlbUpdatePassword,
   KlbUpdateEmail,
+  useRestState,
+  FetchResult,
+  FetchError,
+  KlbAPIResult,
 
   // Helpers
   useSeo,

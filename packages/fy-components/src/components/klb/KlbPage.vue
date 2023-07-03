@@ -33,7 +33,7 @@ const eventBus = useEventBus();
 watch(
   () => route.params.slug,
   async (slug) => {
-    await getPage(slug.toString());
+    if (slug) await getPage(slug.toString());
   }
 );
 const getPage = async (slug: string) => {
@@ -101,7 +101,7 @@ useSeo(seo);
       {{ page.content_cms_entry_data.Title }}
     </h1>
     <div
-      class="prose-dark lg:prose-xl !max-w-none"
+      class="prose dark:prose-invert lg:prose-xl !max-w-none"
       v-if="page"
       v-html="page.content_cms_entry_data.Contents"
     ></div>

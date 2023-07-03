@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, useSlots } from "vue";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/vue/24/solid";
 import type { TableHeaders, TableSortable } from "../../types/utils";
+import { renderToString } from "@vue/server-renderer";
 
 const props = withDefaults(
   defineProps<{
@@ -9,10 +10,16 @@ const props = withDefaults(
     data: any[];
     sortables?: TableSortable;
     showHeaders?: boolean;
+    exportableColumns?: string[];
+    exportableName?: string;
+    csvFormatColumns?: Record<string, (value: any) => string>;
   }>(),
   {
     showHeaders: true,
     sortables: () => ({}),
+    exportableColumns: () => [],
+    csvFormatColumns: () => ({}),
+    exportableName: "default",
   }
 );
 
@@ -21,6 +28,38 @@ const currentSort = reactive({
   direction: "none",
 });
 
+const exportToCsv = () => {
+  const header = props.exportableColumns.join(",");
+  const rows = sortedData.value
+    .map((row) => {
+      return props.exportableColumns
+        .map((column) => {
+          if (row[column] !== null && row[column] !== undefined) {
+            let cell = row[column];
+            if (props.csvFormatColumns[column]) {
+              cell = props.csvFormatColumns[column](row);
+            }
+            return `"${cell}"`;
+          } else {
+            return "";
+          }
+        })
+        .join(",");
+    })
+    .join("\n");
+
+  const csvContent = header + "\n" + rows;
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", props.exportableName + ".csv");
+  link.style.visibility = "hidden";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 const sortedData = computed(() => {
   if (currentSort.direction == "none") {
     return props.data.slice();
@@ -76,7 +115,7 @@ const sortData = (key: string) => {
               }
             "
             scope="col"
-            class="px-6 py-3"
+            class="px-6 py-3 whitespace-nowrap"
             :class="{
               'cursor-pointer': sortables[key],
             }"
@@ -107,8 +146,13 @@ const sortData = (key: string) => {
         </tr>
       </tbody>
     </table>
+    <div v-if="exportableColumns.length" class="flex items-end mt-2">
+      <button class="btn primary defaults" @click="exportToCsv">
+        {{ $t("global_table_export") }}
+      </button>
+    </div>
   </div>
-  <div v-else>
+  <div class="px-4 py-2" v-else>
     {{ $t("no_table_data") }}
   </div>
 </template>

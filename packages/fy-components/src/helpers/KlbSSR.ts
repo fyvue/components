@@ -1,6 +1,6 @@
 import { useRestState } from "../stores/rest";
 import { KlbAPIResult } from "../types/klb";
-import { FetchResult } from "../types/utils";
+import { FetchResult, FetchError } from "../types/utils";
 import { stringHash, isServerRendered, SSRRender } from "@fy-/core";
 import {
   rest as _rest,
@@ -9,11 +9,6 @@ import {
   getPath,
   getUrl,
 } from "@karpeleslab/klbfw";
-
-interface FetchError extends Error {
-  status?: number;
-  fvReject?: boolean;
-}
 
 export async function restFetch<ResultType extends FetchResult>(
   url: string,
