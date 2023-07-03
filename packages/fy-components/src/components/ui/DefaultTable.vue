@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive, computed, useSlots } from "vue";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/vue/24/solid";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowDownTrayIcon,
+} from "@heroicons/vue/24/solid";
 import type { TableHeaders, TableSortable } from "../../types/utils";
 import { renderToString } from "@vue/server-renderer";
 
@@ -29,7 +33,9 @@ const currentSort = reactive({
 });
 
 const exportToCsv = () => {
-  const header = props.exportableColumns.join(",");
+  const header = props.exportableColumns
+    .map((column) => props.headers[column] ?? column)
+    .join(",");
   const rows = sortedData.value
     .map((row) => {
       return props.exportableColumns
@@ -96,6 +102,15 @@ const sortData = (key: string) => {
     class="relative overflow-x-auto border-fv-primary-600 sm:rounded-lg"
     v-if="sortedData.length"
   >
+    <div
+      v-if="exportableColumns.length"
+      class="flex justify-end items-end mb-2"
+    >
+      <button class="btn primary small" @click="exportToCsv">
+        <ArrowDownTrayIcon class="w-4 h-4 mr-2"></ArrowDownTrayIcon
+        >{{ $t("global_table_export") }}
+      </button>
+    </div>
     <table
       class="w-full text-sm text-left text-fv-neutral-500 dark:text-fv-neutral-400"
     >
@@ -146,11 +161,6 @@ const sortData = (key: string) => {
         </tr>
       </tbody>
     </table>
-    <div v-if="exportableColumns.length" class="flex items-end mt-2">
-      <button class="btn primary defaults" @click="exportToCsv">
-        {{ $t("global_table_export") }}
-      </button>
-    </div>
   </div>
   <div class="px-4 py-2" v-else>
     {{ $t("no_table_data") }}
