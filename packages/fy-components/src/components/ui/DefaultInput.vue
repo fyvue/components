@@ -85,6 +85,7 @@ defineExpose({ focus, getInputRef });
           'url',
           'textarea',
           'select',
+          'phone',
         ].includes(type)
       "
     >
