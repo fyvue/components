@@ -62,6 +62,7 @@ export interface KlbAPIResult {
   paging?: KlbApiPaging;
   message?: string;
   fvReject?: boolean;
+  data?: any;
 }
 export interface KlbApiPaging {
   page_no: number;

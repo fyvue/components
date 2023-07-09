@@ -31,6 +31,7 @@ import KlbPaymentMethod from "./components/klb/KlbPaymentMethod.vue";
 import KlbBillingHistory from "./components/klb/KlbBillingHistory.vue";
 import KlbUpdatePassword from "./components/klb/KlbUpdatePassword.vue";
 import KlbUpdateEmail from "./components/klb/KlbUpdateEmail.vue";
+import KlbDataTable from "./components/klb/KlbDataTable.vue";
 // MISC
 import type { FyHeadLazy } from "./types/utils";
 import type { FetchResult, FetchError } from "./types/utils";
@@ -66,6 +67,7 @@ export {
   KlbBillingHistory,
   KlbUpdatePassword,
   KlbUpdateEmail,
+  KlbDataTable,
   useRestState,
   FetchResult,
   FetchError,
