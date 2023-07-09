@@ -104,6 +104,9 @@ const userFlow = async (params: paramsType = { initial: false }) => {
   formData.value.return_to = returnTo.value;
   response.value = (await rest("User:flow", "POST", formData.value).catch(
     (err: KlbAPIResultUnknown) => {
+      if (err.token && err.token == "invalid_request_token") {
+        window.location.reload();
+      }
       responseError.value = err;
       if (responseError.value.param) {
         fieldsError.value[responseError.value.param] =
