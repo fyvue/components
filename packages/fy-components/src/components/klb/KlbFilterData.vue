@@ -10,7 +10,7 @@ interface FilterData {
   uid: string;
   type: string;
   restValue?: string;
-  options?: string[][];
+  options?: any[][];
   default?: string | undefined;
 }
 const emit = defineEmits(["update:modelValue"]);
@@ -31,7 +31,7 @@ const props = withDefaults(
 );
 
 const checkDateValues = (obj: any) => {
-  return removeUndefinedStrings(obj);
+  return removeUndefinedStrings(obj, ["undefined", ""]);
 };
 
 const updateForms = () => {
