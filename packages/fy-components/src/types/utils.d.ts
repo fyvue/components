@@ -1,3 +1,7 @@
+export interface DateInterval {
+  start: string | undefined;
+  end: string | undefined;
+}
 export interface FetchResult {
   [key: string]: any;
   fvReject?: boolean;

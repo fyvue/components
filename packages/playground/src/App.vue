@@ -22,6 +22,8 @@ const components = [
   { link: "/docs/inputs", title: "Inputs" },
   { link: "/docs/sidebar", title: "Sidebar" },
   { link: "/docs/table", title: "Table" },
+  { link: "/docs/dateselection", title: "DateSelection" },
+
 ];
 const css = [{ link: "/docs/buttons", title: "Buttons" }];
 const klb = [

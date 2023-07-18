@@ -47,6 +47,7 @@ const props = withDefaults(
     filtersData: DefaultAnyObject;
     apiPath: string;
     defaultSort?: SortingField;
+    restFunction?: Function;
   }>(),
   {
     showHeaders: true,
@@ -56,6 +57,7 @@ const props = withDefaults(
     exportableName: "default",
     defaultPerPage: 25,
     defaultSort: () => ({ field: "Created", direction: "DESC" }),
+    restFunction: KlbRest,
   }
 );
 const perPage = useStorage<number>(`${props.id}PerPage`, props.defaultPerPage);
@@ -74,7 +76,7 @@ const getData = async (page: number = 1) => {
     results_per_page: perPage.value,
     page_no: page,
   };
-  const r = await KlbRest(props.apiPath, "GET", requestParams, new Headers());
+  const r = await props.restFunction(props.apiPath, "GET", requestParams);
   currentPage.value = page;
   data.value = [];
   paging.value = undefined;

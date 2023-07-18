@@ -15,6 +15,11 @@ export default [
     component: () => import("@/pages/docs/BreadcrumbPage.vue"),
   },
   {
+    path: "/docs/dateselection",
+    name: "docs_dateselection",
+    component: () => import("@/pages/docs/DateSelectionPage.vue"),
+  },
+  {
     path: "/docs/table",
     name: "docs_table",
     component: () => import("@/pages/docs/TablePage.vue"),

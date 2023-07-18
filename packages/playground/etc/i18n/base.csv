@@ -136,3 +136,5 @@
 "confirm_modal_cta_cancel","Cancel",,,,,
 "confirm_modal_cta_confirm","Confirm",,,,,
 global_table_empty_cell,"No data",,,,,
+date_selection_start,"Start",,,,,
+date_selection_end,"End",,,,,

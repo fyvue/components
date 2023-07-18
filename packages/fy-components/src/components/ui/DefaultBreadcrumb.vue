@@ -19,15 +19,7 @@ withDefaults(
     itemtype="https://schema.org/BreadcrumbList"
   >
     <template v-for="(item, index) in nav" :key="`bc_${index.toString()}`">
-      <li
-        :class="
-          item.to
-            ? index == 0
-              ? 'inline-flex items-center'
-              : 'inline-flex items-center'
-            : 'inline-flex items-center'
-        "
-      >
+      <li class="'inline-flex items-center'">
         <ChevronRightIcon
           v-if="index != 0"
           :class="

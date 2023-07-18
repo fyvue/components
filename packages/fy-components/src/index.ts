@@ -22,6 +22,7 @@ import DefaultStepper from "./components/ui/DefaultStepper.vue";
 import DefaultNavbar from "./components/ui/DefaultNavbar.vue";
 import DefaultConfirm from "./components/ui/DefaultConfirm.vue";
 import DefaultBackButton from "./components/ui/DefaultBackButton.vue";
+import DefaultDateSelection from "./components/ui/DefaultDateSelection.vue";
 // KLB
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
@@ -38,6 +39,7 @@ import KlbFilterData from "./components/klb/KlbFilterData.vue";
 import type { FyHeadLazy } from "./types/utils";
 import type { FetchResult, FetchError } from "./types/utils";
 import type { KlbAPIResult } from "./types/klb";
+import type { DateInterval } from "./types/utils";
 import "./global.scss";
 
 export {
@@ -52,6 +54,7 @@ export {
   DefaultNavbar,
   DefaultConfirm,
   DefaultBackButton,
+  DefaultDateSelection,
 
   // KLB
   KlbUseStore,
@@ -73,9 +76,12 @@ export {
   KlbDataTable,
   KlbFilterData,
   useRestState,
+
+  // Types
   FetchResult,
   FetchError,
   KlbAPIResult,
+  DateInterval,
 
   // Helpers
   useSeo,
