@@ -12,7 +12,7 @@ interface FilterData {
   type: string;
   restValue?: string;
   options?: any[][];
-  default?: string | undefined;
+  default?: any | undefined;
   formats: Record<string, (value: any) => any>;
 }
 const emit = defineEmits(["update:modelValue"]);
@@ -42,8 +42,16 @@ const removeUndefinedStrings = (
       if (!input[key]["$between"]) {
         output[key] = input[key];
       } else {
+        input[key]["$between"][0] =
+          input[key]["$between"][0] == "" || input[key]["$between"][0] == null
+            ? undefined
+            : input[key]["$between"][0];
+        input[key]["$between"][1] =
+          input[key]["$between"][1] == "" || input[key]["$between"][1] == null
+            ? undefined
+            : input[key]["$between"][1];
         if (
-          input[key]["$between"][0] !== undefined &&
+          input[key]["$between"][0] !== undefined ||
           input[key]["$between"][1] !== undefined
         ) {
           output[key] = input[key];
@@ -71,8 +79,13 @@ const updateForms = () => {
   rules.formData = {};
   props.data.forEach((group) => {
     group.forEach((f) => {
-      state.formData[f.uid] = f.default;
+      state.formData[f.uid] =
+        typeof f.default == "object" && f.default
+          ? JSON.parse(JSON.stringify(f.default))
+          : f.default;
+
       types[f.uid] = f.type;
+
       if (f.options && f.options.length) {
         f.options = f.options.map((status) => {
           const [statusKey, statusValue] = status;
