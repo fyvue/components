@@ -7,11 +7,12 @@ const props = withDefaults(
     mode?: "interval" | "single";
     modelValue?: DateInterval;
     id: string;
+    label?: string;
   }>(),
   {
     mode: "single",
     modelValue: () => {
-      return { start: undefined, end: undefined };
+      return { $between: [undefined, undefined] };
     },
   }
 );
@@ -28,28 +29,26 @@ const model = computed({
 <template>
   <div v-if="mode == 'interval' && model">
     <div class="flex flex-col md:flex-row">
-      <div class="flex flex-col md:flex-row">
-        <DefaultInput
-          v-model="model.start"
-          type="date"
-          :id="`${id}_start`"
-          class="w-full md:w-40"
-          :label="$t('date_selection_start')"
-        />
-        <div class="md:mx-2 flex items-center justify-center">
-          <div>↭</div>
-        </div>
-        <DefaultInput
-          v-model="model.end"
-          type="date"
-          class="w-full md:w-40"
-          :id="`${id}_end`"
-          :label="$t('date_selection_end')"
-        />
+      <DefaultInput
+        v-model="model.$between[0]"
+        type="date"
+        :id="`${id}_start`"
+        class="w-full"
+        :label="`${label} (${$t('date_selection_start')})`"
+      />
+      <div class="md:mx-2 flex items-center justify-center">
+        <div>↭</div>
       </div>
+      <DefaultInput
+        v-model="model.$between[1]"
+        type="date"
+        class="w-full"
+        :id="`${id}_end`"
+        :label="`${label} (${$t('date_selection_end')})`"
+      />
     </div>
   </div>
   <div v-else>
-    <DefaultInput v-model="model.start" type="date" :id="id" />
+    <DefaultInput v-model="model.$between[0]" type="date" :id="id" />
   </div>
 </template>

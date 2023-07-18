@@ -7,8 +7,8 @@ importers:
   packages/fy-components:
     devDependencies:
       '@fy-/core':
-        specifier: ^0.0.16
-        version: 0.0.16(i18next@22.5.1)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4)
+        specifier: ^0.0.18
+        version: 0.0.18(i18next@23.2.11)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4)
       '@fy-/head':
         specifier: ^0.0.37
         version: 0.0.37(vue@3.3.4)
@@ -97,8 +97,8 @@ importers:
         specifier: workspace:*
         version: link:../fy-components
       '@fy-/core':
-        specifier: ^0.0.17
-        version: 0.0.17(i18next@23.2.8)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4)
+        specifier: ^0.0.18
+        version: 0.0.18(i18next@23.2.8)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4)
       '@fy-/head':
         specifier: ^0.0.37
         version: 0.0.37(vue@3.3.4)
@@ -511,24 +511,24 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fy-/core@0.0.16(i18next@22.5.1)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4):
-    resolution: {integrity: sha512-9w/k2lP+PZg2aIIDaE7Ag+sdJsh9h1XtPd4koIW9B5vq2xOVszGv+rA5HZRKh6XZM3vGAsChCaGu+msVwaEJhQ==}
+  /@fy-/core@0.0.18(i18next@23.2.11)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4):
+    resolution: {integrity: sha512-AQUDRWt8vzONtBZTDfKEHjIcw0fBzl/RKTWr0LuRBqYVoYk2avrnyZyop/hZrEmINY9Wd5Kk3YlpzUiOzaLhzw==}
     peerDependencies:
-      i18next: ^22.0.x
-      pinia: ^2.0.x
-      timeago.js: ^4.0.x
-      vue: ^3.2.x
-      vue-router: ^4.1.x
+      i18next: ^23.x.x
+      pinia: ^2.x.x
+      timeago.js: ^4.x.x
+      vue: ^3.x.x
+      vue-router: ^4.x.x
     dependencies:
-      i18next: 22.5.1
+      i18next: 23.2.11
       pinia: 2.1.4(typescript@5.1.6)(vue@3.3.4)
       timeago.js: 4.0.2
       vue: 3.3.4
       vue-router: 4.2.4(vue@3.3.4)
     dev: true
 
-  /@fy-/core@0.0.17(i18next@23.2.8)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4):
-    resolution: {integrity: sha512-488JsCo01nYMTETTGNxmb/yhXQVki4vvDGWjKC+VzV1BFYwceBqqEyzO/mwavRP3pA1td4DUU5gRkmJ4HN1+9w==}
+  /@fy-/core@0.0.18(i18next@23.2.8)(pinia@2.1.4)(timeago.js@4.0.2)(vue-router@4.2.4)(vue@3.3.4):
+    resolution: {integrity: sha512-AQUDRWt8vzONtBZTDfKEHjIcw0fBzl/RKTWr0LuRBqYVoYk2avrnyZyop/hZrEmINY9Wd5Kk3YlpzUiOzaLhzw==}
     peerDependencies:
       i18next: ^23.x.x
       pinia: ^2.x.x
@@ -1975,8 +1975,8 @@ packages:
       toidentifier: 1.0.1
     dev: true
 
-  /i18next@22.5.1:
-    resolution: {integrity: sha512-8TGPgM3pAD+VRsMtUMNknRz3kzqwp/gPALrWMsDnmC1mKqJwpWyooQRLMcbTwq8z8YwSmuj+ZYvc+xCuEpkssA==}
+  /i18next@23.2.11:
+    resolution: {integrity: sha512-MA4FsxOjyCaOZtRDB4yuwjCvqYEioD4G4LlXOn7SO3rnQUlxTufyLsOqfL9MKakeLRBkefe8bqcs0D6Z/xFk1w==}
     dependencies:
       '@babel/runtime': 7.22.6
     dev: true

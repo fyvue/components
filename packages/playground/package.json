@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@fy-/components": "workspace:*",
-        "@fy-/core": "^0.0.17",
+        "@fy-/core": "^0.0.18",
         "@fy-/head": "^0.0.37",
         "@fy-/icons": "^0.0.2",
         "@karpeleslab/i18next-klb-backend": "^0.1.0",

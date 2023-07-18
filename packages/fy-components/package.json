@@ -1,6 +1,6 @@
 {
     "name": "@fy-/components",
-    "version": "0.1.82",
+    "version": "0.1.9",
     "author": "Florian 'Fy' Gasquez <m@fy.to>",
     "license": "MIT",
     "repository": {
@@ -27,7 +27,7 @@
         }
     },
     "peerDependencies": {
-        "@fy-/core": "^0.0.17",
+        "@fy-/core": "^0.0.18",
         "@fy-/head": "^0.0.37",
         "@fy-/icons": "^0.0.2",
         "@headlessui/vue": "^1.7.x",
@@ -44,7 +44,7 @@
         "lint:check": "eslint src/ --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore --fix"
     },
     "devDependencies": {
-        "@fy-/core": "^0.0.16",
+        "@fy-/core": "^0.0.18",
         "@fy-/head": "^0.0.37",
         "@fy-/icons": "^0.0.2",
         "@headlessui/vue": "^1.7.14",

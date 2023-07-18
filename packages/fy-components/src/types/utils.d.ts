@@ -1,6 +1,5 @@
 export interface DateInterval {
-  start: string | undefined;
-  end: string | undefined;
+  $between: [any, any];
 }
 export interface FetchResult {
   [key: string]: any;

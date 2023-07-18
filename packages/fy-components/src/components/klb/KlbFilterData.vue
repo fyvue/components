@@ -2,8 +2,9 @@
 import useVuelidate from "@vuelidate/core";
 import { reactive } from "vue";
 import DefaultInput from "../ui/DefaultInput.vue";
-import { useTranslation, removeUndefinedStrings } from "@fy-/core";
+import { useTranslation } from "@fy-/core";
 import { onMounted } from "vue";
+import DefaultDateSelection from "../ui/DefaultDateSelection.vue";
 interface FilterData {
   label: string;
   req: boolean;
@@ -12,6 +13,7 @@ interface FilterData {
   restValue?: string;
   options?: any[][];
   default?: string | undefined;
+  formats: Record<string, (value: any) => any>;
 }
 const emit = defineEmits(["update:modelValue"]);
 const state = reactive<any>({ formData: {} });
@@ -29,8 +31,38 @@ const props = withDefaults(
     data: () => [],
   }
 );
+const removeUndefinedStrings = (
+  input: any,
+  undefinedValues: any[] = ["undefined"]
+) => {
+  const output: any = {};
 
-const checkDateValues = (obj: any) => {
+  Object.keys(input).forEach((key) => {
+    if (!undefinedValues.includes(input[key]) && input[key] !== undefined) {
+      if (!input[key]["$between"]) {
+        output[key] = input[key];
+      } else {
+        if (
+          input[key]["$between"][0] !== undefined &&
+          input[key]["$between"][1] !== undefined
+        ) {
+          output[key] = input[key];
+        }
+      }
+    }
+  });
+
+  return output;
+};
+
+const formatValues = (obj: any) => {
+  props.data.forEach((group) => {
+    group.forEach((f) => {
+      if (f.formats && f.formats[f.type]) {
+        obj[f.uid] = f.formats[f.type](obj[f.uid]);
+      }
+    });
+  });
   return removeUndefinedStrings(obj, ["undefined", ""]);
 };
 
@@ -51,13 +83,13 @@ const updateForms = () => {
       rules.formData[f.uid] = {};
     });
   });
-  emit("update:modelValue", checkDateValues({ ...state.formData }));
+  emit("update:modelValue", formatValues({ ...state.formData }));
 };
 updateForms();
 const v$ = useVuelidate(rules, state);
 
 const submitForm = () => {
-  emit("update:modelValue", checkDateValues({ ...state.formData }));
+  emit("update:modelValue", formatValues({ ...state.formData }));
 };
 const resetForm = () => {
   updateForms();
@@ -78,6 +110,14 @@ onMounted(() => {});
             :options="f.options ? f.options : [[]]"
             v-model="state.formData[f.uid]"
             :errorVuelidate="v$.formData[f.uid].$errors"
+            class="mb-2"
+          />
+          <DefaultDateSelection
+            :id="f.uid"
+            :label="f.label"
+            v-if="f.type === 'range'"
+            mode="interval"
+            v-model="state.formData[f.uid]"
             class="mb-2"
           />
         </template>
