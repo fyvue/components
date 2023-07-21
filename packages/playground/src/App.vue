@@ -23,7 +23,6 @@ const components = [
   { link: "/docs/sidebar", title: "Sidebar" },
   { link: "/docs/table", title: "Table" },
   { link: "/docs/dateselection", title: "DateSelection" },
-
 ];
 const css = [{ link: "/docs/buttons", title: "Buttons" }];
 const klb = [
@@ -34,7 +33,6 @@ const klb = [
   { link: "/docs/klbpaymentmethod", title: "KlbPaymentMethod" },
   { link: "/docs/klbbillinghistory", title: "KlbBillingHistory" },
   { link: "/docs/klbuser", title: "KlbUser" },
-
 ];
 components.sort((a, b) => a.title.localeCompare(b.title));
 css.sort((a, b) => a.title.localeCompare(b.title));

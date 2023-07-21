@@ -8,7 +8,7 @@ import {
 import DefaultPaging from "../ui/DefaultPaging.vue";
 import DefaultInput from "../ui/DefaultInput.vue";
 import { useEventBus } from "@fy-/core";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
+import { useRest } from "../../composables/useRest";
 import { useRoute } from "vue-router";
 import { useStorage } from "@vueuse/core";
 interface DefaultStringObject {
@@ -57,7 +57,7 @@ const props = withDefaults(
     exportableName: "default",
     defaultPerPage: 25,
     defaultSort: () => ({ field: "Created", direction: "DESC" }),
-    restFunction: KlbRest,
+    restFunction: () => useRest(),
   }
 );
 const perPage = useStorage<number>(`${props.id}PerPage`, props.defaultPerPage);
@@ -76,7 +76,9 @@ const getData = async (page: number = 1) => {
     results_per_page: perPage.value,
     page_no: page,
   };
-  const r = await props.restFunction(props.apiPath, "GET", requestParams);
+  const r = await props.restFunction(props.apiPath, "GET", requestParams, {
+    getBody: true,
+  });
   currentPage.value = page;
   data.value = [];
   paging.value = undefined;

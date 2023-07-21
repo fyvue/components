@@ -43,15 +43,23 @@ import type { KlbAPIResult } from "./types/klb";
 import type { DateInterval } from "./types/utils";
 import "./global.scss";
 // Rest
-import { useRest } from "./composables/useRest";
+import { useRest, useRestComposable } from "./composables/useRest";
 import type { FetchResult, FetchError } from "./types/utils";
 
-export function createFyComponents(restMode: "KLB" | "Fy" = "KLB"): Plugin {
+export function createFyComponents(
+  prefix: string,
+  restMode: "KLB" | "Fy" = "KLB"
+): Plugin {
   return {
     install(app: App) {
       if (app.config.globalProperties) {
         app.config.globalProperties.$restMode = restMode;
-        app.config.globalProperties.$rest = useRest();
+        app.provide("restMode", restMode);
+        app.config.globalProperties.$restPrefix = prefix;
+        app.provide("restPrefix", prefix);
+        const rest = useRestComposable(app);
+        app.config.globalProperties.$rest = rest;
+        app.provide("rest", rest);
       }
     },
   };

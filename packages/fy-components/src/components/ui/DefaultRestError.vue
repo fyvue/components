@@ -7,6 +7,7 @@ const restError = ref<any>();
 
 const openRestError = (err: any) => {
   restError.value = err;
+  console.log(err);
   eventBus.emit("restErrorModal", true);
 };
 onMounted(async () => {

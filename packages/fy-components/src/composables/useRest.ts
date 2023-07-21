@@ -1,4 +1,5 @@
 import { inject } from "vue";
+import type { App } from "vue";
 import { useRestState } from "../stores/rest";
 import { KlbAPIResult } from "../types/klb";
 import { stringHash, isServerRendered, useEventBus } from "@fy-/core";
@@ -20,21 +21,68 @@ export function useRest() {
   return rest;
 }
 export function useRestMode() {
-  const restMode = inject<"" | "Fy" | "KLB">("fyRestMode");
+  const restMode = inject<"" | "Fy" | "KLB">("restMode");
   if (!restMode) throw new Error("Did you apply app.use(fyComponents)?");
 
   return "";
 }
+export function useRestPrefix() {
+  const restMode = inject<string>("restPrefix");
+  if (!restMode) throw new Error("Did you apply app.use(fyComponents)?");
 
-export function useRestComposable(): <ResultType extends KlbAPIResult>(
+  return "/";
+}
+
+async function handleResponse(
+  res: Response,
+  eventBus: any
+): Promise<KlbAPIResult> {
+  return res
+    .json()
+    .then((data: any) => {
+      const _res: KlbAPIResult = {
+        data: undefined,
+        paging: undefined,
+        status: res.status,
+        result: data.result,
+      };
+      _res.data = data.data;
+      _res.time = data.time;
+      _res.paging = data.paging;
+      _res.token = data.token || null;
+      _res.message = data.message || null;
+      if (_res.result == "error") {
+        eventBus.emit("main-loading", false);
+        eventBus.emit("restError", _res);
+      }
+      return _res;
+    })
+    .catch((err) => {
+      const _res: KlbAPIResult = {
+        data: null,
+        result: err.result,
+        time: 0,
+        status: err.status,
+        token: "Invalid JSON",
+      };
+      eventBus.emit("main-loading", false);
+      eventBus.emit("restError", _res);
+      return _res;
+    });
+}
+
+export function useRestComposable(
+  app?: App
+): <ResultType extends KlbAPIResult>(
   url: string,
   method: string,
   params?: any,
   ctx?: any,
   headers?: Headers
 ) => Promise<ResultType> {
-  const restMode = useRestMode();
-  const eventBus = useEventBus();
+  const restMode = app?.config.globalProperties.$restMode || useRestMode();
+  const eventBus = app?.config.globalProperties.$eventBus || useEventBus();
+  const prefix = app?.config.globalProperties.$restPrefix || useRestPrefix();
   let restFunction: <ResultType extends KlbAPIResult>(
     url: string,
     method: string,
@@ -88,6 +136,7 @@ export function useRestComposable(): <ResultType extends KlbAPIResult>(
       headers: Headers = new Headers({ "Content-Type": "application/json" })
     ): Promise<ResultType> => {
       const restState = useRestState();
+      url = prefix + url;
       let formattedParams = "";
       if (["POST", "PATCH"].includes(method)) {
         formattedParams = JSON.stringify(params);
@@ -105,11 +154,9 @@ export function useRestComposable(): <ResultType extends KlbAPIResult>(
         if (formattedParams == "?") formattedParams = "";
         url = `${url}${formattedParams}`;
       }
-      const urlParams =
-        method === "GET" && params
-          ? "?" + new URLSearchParams(params as Record<string, string>)
-          : "";
-      const formattedUrl = `${url}${urlParams}`;
+      const formattedUrl = `${url}${
+        ["GET", "DELETE"].includes(method) ? formattedParams : ""
+      }`;
       const requestHash = stringHash(
         `${formattedUrl}${method}${formattedParams}`
       );
@@ -126,34 +173,31 @@ export function useRestComposable(): <ResultType extends KlbAPIResult>(
         return Promise.resolve(result);
       }
 
-      try {
-        const response = await fetch(formattedUrl, {
-          method,
-          body: formattedParams ? formattedParams : undefined,
-          headers,
+      return fetch(formattedUrl, {
+        method: method,
+        body: ["POST", "PATCH"].includes(method) ? formattedParams : undefined,
+        headers,
+      })
+        .then(async (res) => {
+          if (!res.ok) throw res; // Throws HTTP errors to be caught in .catch block.
+          const result = await handleResponse(res, eventBus);
+          if (getMode() === "ssr") {
+            restState.addResult(requestHash, result);
+          }
+          return Promise.resolve(result as unknown as ResultType);
+        })
+        .catch(async (err) => {
+          if (err instanceof Response) {
+            const result = await handleResponse(err, eventBus);
+            if (getMode() === "ssr") {
+              restState.addResult(requestHash, result);
+            }
+            return Promise.resolve(result as unknown as ResultType);
+          } else {
+            console.error("Network error:", err);
+            throw err;
+          }
         });
-        const data = await response.json();
-        const result: KlbAPIResult = { ...data, status: response.status };
-
-        if (getMode() === "ssr") {
-          restState.addResult(requestHash, result);
-        }
-        return result as ResultType;
-      } catch (err) {
-        const fetchError = err as KlbAPIResult;
-
-        const result: KlbAPIResult = {
-          ...fetchError,
-          status: fetchError.status || 500,
-        };
-
-        if (getMode() === "ssr") {
-          restState.addResult(requestHash, result);
-        }
-        eventBus.emit("main-loading", false);
-        eventBus.emit("restError", result);
-        return Promise.resolve(result as ResultType);
-      }
     };
   }
   return restFunction;
