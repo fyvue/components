@@ -1,3 +1,4 @@
+import type { App, Plugin } from "vue";
 import {
   rest as KlbRest,
   restFetch as KlbRestFetch,
@@ -23,6 +24,7 @@ import DefaultNavbar from "./components/ui/DefaultNavbar.vue";
 import DefaultConfirm from "./components/ui/DefaultConfirm.vue";
 import DefaultBackButton from "./components/ui/DefaultBackButton.vue";
 import DefaultDateSelection from "./components/ui/DefaultDateSelection.vue";
+import DefaultRestError from "./components/ui/DefaultRestError.vue";
 // KLB
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
@@ -37,11 +39,23 @@ import KlbDataTable from "./components/klb/KlbDataTable.vue";
 import KlbFilterData from "./components/klb/KlbFilterData.vue";
 // MISC
 import type { FyHeadLazy } from "./types/utils";
-import type { FetchResult, FetchError } from "./types/utils";
 import type { KlbAPIResult } from "./types/klb";
 import type { DateInterval } from "./types/utils";
 import "./global.scss";
+// Rest
+import { useRest } from "./composables/useRest";
+import type { FetchResult, FetchError } from "./types/utils";
 
+export function createFyComponents(restMode = "KLB"): Plugin {
+  return {
+    install(app: App) {
+      if (app.config.globalProperties) {
+        app.config.globalProperties.$restMode = restMode;
+        app.config.globalProperties.$rest = useRest();
+      }
+    },
+  };
+}
 export {
   // Base
   DefaultModal,
@@ -55,6 +69,7 @@ export {
   DefaultConfirm,
   DefaultBackButton,
   DefaultDateSelection,
+  DefaultRestError,
 
   // KLB
   KlbUseStore,
@@ -78,12 +93,13 @@ export {
   useRestState,
 
   // Types
-  FetchResult,
-  FetchError,
   KlbAPIResult,
   DateInterval,
+  FetchResult,
+  FetchError,
 
   // Helpers
   useSeo,
+  useRest,
   FyHeadLazy,
 };

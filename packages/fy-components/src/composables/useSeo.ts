@@ -1,5 +1,5 @@
 import type { Ref } from "vue";
-import { getUrl, getLocale, getMode } from "@karpeleslab/klbfw";
+import { getUrl, getLocale } from "@karpeleslab/klbfw";
 import { useFyHead } from "@fy-/head";
 import { computed } from "vue";
 import { FyHeadLazy } from "../types/utils";

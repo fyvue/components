@@ -2,9 +2,10 @@
 import useVuelidate from "@vuelidate/core";
 import { reactive } from "vue";
 import DefaultInput from "../ui/DefaultInput.vue";
-import { useTranslation } from "@fy-/core";
+import { useEventBus, useTranslation } from "@fy-/core";
 import { onMounted } from "vue";
 import DefaultDateSelection from "../ui/DefaultDateSelection.vue";
+import { onUnmounted } from "vue";
 interface FilterData {
   label: string;
   req: boolean;
@@ -107,8 +108,13 @@ const submitForm = () => {
 const resetForm = () => {
   updateForms();
 };
-
-onMounted(() => {});
+const eventBus = useEventBus();
+onMounted(() => {
+  eventBus.on("resetFilters", resetForm);
+});
+onUnmounted(() => {
+  eventBus.off("resetFilters", resetForm);
+});
 </script>
 <template>
   <form @submit.prevent="() => submitForm()">
