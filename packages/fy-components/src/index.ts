@@ -46,7 +46,7 @@ import "./global.scss";
 import { useRest } from "./composables/useRest";
 import type { FetchResult, FetchError } from "./types/utils";
 
-export function createFyComponents(restMode = "KLB"): Plugin {
+export function createFyComponents(restMode: "KLB" | "Fy" = "KLB"): Plugin {
   return {
     install(app: App) {
       if (app.config.globalProperties) {

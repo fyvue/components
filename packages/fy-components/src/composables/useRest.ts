@@ -10,11 +10,11 @@ export function useRest() {
       <ResultType extends KlbAPIResult>(
         url: string,
         method: string,
-        params: any,
+        params?: any,
         ctx?: any,
         headers?: Headers
       ) => Promise<ResultType>
-    >("fyRest");
+    >("rest");
   if (!rest) throw new Error("Did you apply app.use(fyComponents)?");
 
   return rest;
@@ -29,7 +29,7 @@ export function useRestMode() {
 export function useRestComposable(): <ResultType extends KlbAPIResult>(
   url: string,
   method: string,
-  params: any,
+  params?: any,
   ctx?: any,
   headers?: Headers
 ) => Promise<ResultType> {
@@ -38,7 +38,7 @@ export function useRestComposable(): <ResultType extends KlbAPIResult>(
   let restFunction: <ResultType extends KlbAPIResult>(
     url: string,
     method: string,
-    params: any,
+    params?: any,
     ctx?: any,
     headers?: Headers
   ) => Promise<ResultType>;
