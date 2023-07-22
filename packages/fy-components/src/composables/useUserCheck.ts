@@ -1,9 +1,14 @@
 import { computed } from "vue";
 import { RouteLocation, useRouter } from "vue-router";
 import { useKlbStore } from "../stores/klb";
+import { useFyStore } from "../stores/fy";
 import { useServerRouter } from "@fy-/core";
-export function useUserCheck(path = "/login", redirectLink = false) {
-  const store = useKlbStore();
+export function useUserCheck(
+  path = "/login",
+  redirectLink = false,
+  mode: "klb" | "fy" = "klb"
+) {
+  const store = mode == "klb" ? useKlbStore() : useFyStore();
   const isAuth = computed(() => store.isAuth);
   const router = useRouter();
 

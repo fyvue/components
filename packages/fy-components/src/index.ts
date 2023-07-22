@@ -5,6 +5,7 @@ import {
   handleSSR as KlbHandleSSR,
 } from "./helpers/KlbSSR";
 import { useKlbStore as KlbUseStore } from "./stores/klb";
+import { useFyStore } from "./stores/fy";
 import { useRestState } from "./stores/rest";
 import { useSeo } from "./composables/useSeo";
 import { useUserCheck as KlbUseUserCheck } from "./composables/useUserCheck";
@@ -25,6 +26,7 @@ import DefaultConfirm from "./components/ui/DefaultConfirm.vue";
 import DefaultBackButton from "./components/ui/DefaultBackButton.vue";
 import DefaultDateSelection from "./components/ui/DefaultDateSelection.vue";
 import DefaultRestError from "./components/ui/DefaultRestError.vue";
+import DefaultDrawer from "./components/ui/DefaultDrawer.vue";
 // KLB
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
@@ -78,6 +80,7 @@ export {
   DefaultBackButton,
   DefaultDateSelection,
   DefaultRestError,
+  DefaultDrawer,
 
   // KLB
   KlbUseStore,
@@ -99,6 +102,9 @@ export {
   KlbDataTable,
   KlbFilterData,
   useRestState,
+
+  // Fy
+  useFyStore,
 
   // Types
   KlbAPIResult,

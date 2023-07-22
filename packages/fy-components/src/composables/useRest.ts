@@ -154,9 +154,7 @@ export function useRestComposable(
         if (formattedParams == "?") formattedParams = "";
         url = `${url}${formattedParams}`;
       }
-      const formattedUrl = `${url}${
-        ["GET", "DELETE"].includes(method) ? formattedParams : ""
-      }`;
+      const formattedUrl = url.toString();
       const requestHash = stringHash(
         `${formattedUrl}${method}${formattedParams}`
       );

@@ -14,7 +14,7 @@ interface FilterData {
   restValue?: string;
   options?: any[][];
   default?: any | undefined;
-  formats: Record<string, (value: any) => any>;
+  formats?: Record<string, (value: any) => any>;
 }
 const emit = defineEmits(["update:modelValue"]);
 const state = reactive<any>({ formData: {} });

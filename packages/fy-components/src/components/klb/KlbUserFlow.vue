@@ -9,6 +9,7 @@ import type {
 } from "../../types/klb";
 import { rest } from "../../helpers/KlbSSR";
 import { useKlbStore } from "../../stores/klb";
+import { useFyStore } from "../../stores/fy";
 import DefaultInput from "../ui/DefaultInput.vue";
 type ObjectS2Any = {
   [key: string]: any;
@@ -18,8 +19,10 @@ const props = withDefaults(
     returnDefault?: string;
     forceAction?: string;
     onSuccess?: Function;
+    mode?: "klb" | "fy";
   }>(),
   {
+    mode: "klb",
     returnDefault: "/",
   }
 );
@@ -30,7 +33,7 @@ type paramsType = {
   initial: boolean;
   oauth?: string;
 };
-const store = useKlbStore();
+const store = props.mode == "klb" ? useKlbStore() : useFyStore();
 const route = useRoute();
 const router = useRouter();
 const eventBus = useEventBus();
@@ -121,6 +124,7 @@ const userFlow = async (params: paramsType = { initial: false }) => {
       await props.onSuccess();
     }
     if (response.value.data.complete == true && response.value.data.user) {
+      // @ts-ignore
       store.setUser(response.value.data.user);
       if (isExternalUrl(returnTo.value)) {
         window.location.href = returnTo.value;
