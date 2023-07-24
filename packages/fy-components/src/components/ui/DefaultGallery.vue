@@ -221,21 +221,21 @@ onUnmounted(() => {
               </div>
               <div class="grid grid-cols-2 gap-2 p-2">
                 <div
-                  v-for="i in images.length - 1"
+                  v-for="i in images.length"
                   :key="`bg_${id}_${i}`"
                   class="hover:!brightness-100"
                   :style="`${
-                    i == modelValue
+                    i - 1 == modelValue
                       ? 'filter: brightness(1)'
                       : 'filter: brightness(0.5)'
                   }`"
                 >
                   <img
-                    @click="$eventBus.emit(`${id}GalleryImage`, i)"
+                    @click="$eventBus.emit(`${id}GalleryImage`, i - 1)"
                     :class="`h-auto max-w-full rounded-lg cursor-pointer shadow  ${getBorderColor(
-                      images[i]
+                      images[i - 1]
                     )}`"
-                    :src="getThumbnailUrl(images[i])"
+                    :src="getThumbnailUrl(images[i - 1])"
                   />
                 </div>
               </div>
@@ -252,16 +252,19 @@ onUnmounted(() => {
           'items-center': gridMode == 'grid',
         }"
       >
-        <template v-for="i in images.length - 1" :key="`g_${id}_${i}`">
+        <template v-for="i in images.length" :key="`g_${id}_${i}`">
           <template v-if="gridMode == 'mason'">
-            <div class="grid gap-4 items-start" v-if="i % gridHeight == 0">
+            <div
+              class="grid gap-4 items-start"
+              v-if="i + (1 % gridHeight) == 0"
+            >
               <template v-for="j in gridHeight" :key="`gi_${id}_${i + j}`">
                 <div>
                   <img
-                    @click="$eventBus.emit(`${id}GalleryImage`, i + j)"
+                    @click="$eventBus.emit(`${id}GalleryImage`, i + j - 2)"
                     class="h-auto max-w-full rounded-lg cursor-pointer"
-                    v-if="i + j < images.length"
-                    :src="getThumbnailUrl(images[i + j])"
+                    v-if="i + j - 2 < images.length"
+                    :src="getThumbnailUrl(images[i + j - 2])"
                   />
                 </div>
               </template>
@@ -269,9 +272,9 @@ onUnmounted(() => {
           </template>
           <div v-else>
             <img
-              @click="$eventBus.emit(`${id}GalleryImage`, i)"
+              @click="$eventBus.emit(`${id}GalleryImage`, i - 1)"
               class="h-auto max-w-full rounded-lg cursor-pointer"
-              :src="getThumbnailUrl(images[i])"
+              :src="getThumbnailUrl(images[i - 1])"
             />
           </div>
         </template>
