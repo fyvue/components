@@ -114,13 +114,32 @@ const getBorderColor = (i: any) => {
   }
   return "";
 };
+const handleKeyboardInput = (event: KeyboardEvent) => {
+  switch (event.key) {
+    case "ArrowRight":
+      goNextImage();
+      break;
+    case "ArrowLeft":
+      goPrevImage();
+      break;
+    default:
+      break;
+  }
+};
+
 onMounted(() => {
   eventBus.on(`${props.id}GalleryImage`, openGalleryImage);
   eventBus.on(`${props.id}Gallery`, openGalleryImage);
+  if (window !== undefined && !import.meta.env.SSR) {
+    window.addEventListener("keydown", handleKeyboardInput);
+  }
 });
 onUnmounted(() => {
   eventBus.off(`${props.id}Gallery`, openGalleryImage);
   eventBus.off(`${props.id}GalleryImage`, openGalleryImage);
+  if (window !== undefined && !import.meta.env.SSR) {
+    window.removeEventListener("keydown", handleKeyboardInput);
+  }
 });
 </script>
 <template>
