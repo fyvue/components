@@ -85,6 +85,7 @@ const getData = async (page: number = 1) => {
   if (r && r.result == "success") {
     data.value = r.data;
     paging.value = r.paging;
+    eventBus.emit(`${props.id}NewData`, data.value);
   }
   eventBus.emit("main-loading", false);
 };

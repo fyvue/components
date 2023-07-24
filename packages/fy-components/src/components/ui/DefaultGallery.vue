@@ -25,7 +25,7 @@ const props = withDefaults(
     onClose?: Function;
     closeIcon?: Object;
     gridHeight?: number;
-    gridMode: "mason" | "grid" | "button";
+    mode: "mason" | "grid" | "button" | "hidden";
     paging?: Paging | undefined;
     buttonText?: string;
     buttonType?: string;
@@ -34,7 +34,7 @@ const props = withDefaults(
   }>(),
   {
     modelValue: 0,
-    gridMode: "grid",
+    mode: "grid",
     gridHeight: 4,
     closeIcon: () => h(XCircleIcon),
     images: () => [],
@@ -153,7 +153,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div v-if="images.length">
+  <div>
     <TransitionRoot
       :show="isOpen"
       as="template"
@@ -273,16 +273,16 @@ onUnmounted(() => {
         </DialogPanel>
       </Dialog>
     </TransitionRoot>
-    <template v-if="gridMode != 'button'">
+    <template v-if="mode == 'grid' || mode == 'mason'">
       <div
         class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-4"
         :class="{
-          'items-start': gridMode == 'mason',
-          'items-center': gridMode == 'grid',
+          'items-start': mode == 'mason',
+          'items-center': mode == 'grid',
         }"
       >
         <template v-for="i in images.length" :key="`g_${id}_${i}`">
-          <template v-if="gridMode == 'mason'">
+          <template v-if="mode == 'mason'">
             <div
               class="grid gap-4 items-start"
               v-if="i + (1 % gridHeight) == 0"
@@ -310,9 +310,9 @@ onUnmounted(() => {
       </div>
     </template>
     <button
+      v-if="mode == 'button'"
       :class="`btn ${buttonType ? buttonType : 'primary'} defaults`"
       @click="openGalleryImage(0)"
-      v-else
     >
       {{ buttonText ? buttonText : $t("open_gallery_cta") }}
     </button>
