@@ -27,10 +27,9 @@ export function useRestMode() {
   return "";
 }
 export function useRestPrefix() {
-  const restMode = inject<string>("restPrefix");
-  if (!restMode) throw new Error("Did you apply app.use(fyComponents)?");
+  const restMode = inject<string | undefined>("restPrefix");
 
-  return "/";
+  return restMode;
 }
 
 async function handleResponse(

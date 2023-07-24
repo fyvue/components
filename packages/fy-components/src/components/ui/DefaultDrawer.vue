@@ -61,8 +61,9 @@ onUnmounted(() => {
   <transition name="slide-x">
     <div
       id="drawer-navigation"
-      class="fixed left-0 z-40 h-[calc(100vh-56px)] overflow-y-auto transition-transform bg-white w-80 dark:bg-fv-neutral-900 top-[3.84rem]"
+      class="fixed left-0 h-[calc(100vh-56px)] overflow-y-auto transition-transform bg-white w-80 dark:bg-fv-neutral-900 top-[3.84rem]"
       tabindex="-1"
+      style="z-index: 30"
       aria-labelledby="drawer-navigation-label"
       v-if="isOpen"
     >

@@ -50,7 +50,7 @@ import { useRest, useRestComposable } from "./composables/useRest";
 import type { FetchResult, FetchError } from "./types/utils";
 
 export function createFyComponents(
-  prefix: string,
+  prefix: string | undefined,
   restMode: "KLB" | "Fy" = "KLB"
 ): Plugin {
   return {
