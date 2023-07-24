@@ -1,6 +1,6 @@
 {
     "name": "@fy-/components",
-    "version": "0.2.64",
+    "version": "0.2.70",
     "author": "Florian 'Fy' Gasquez <m@fy.to>",
     "license": "MIT",
     "repository": {
@@ -44,13 +44,13 @@
         "lint:check": "eslint src/ --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore --fix"
     },
     "devDependencies": {
-        "@fy-/core": "^0.0.18",
+        "@fy-/core": "^0.0.20",
         "@fy-/head": "^0.0.37",
         "@fy-/icons": "^0.0.2",
         "@headlessui/vue": "^1.7.14",
         "@heroicons/vue": "^2.0.18",
         "@karpeleslab/klbfw": "^0.1.13",
-        "@types/node": "^20.4.1",
+        "@types/node": "^20.4.4",
         "@vitejs/plugin-vue": "^4.2.3",
         "@vue/compiler-sfc": "^3.3.4",
         "@vue/runtime-core": "^3.3.4",
@@ -58,19 +58,19 @@
         "@vuelidate/core": "^2.0.3",
         "@vuelidate/validators": "^2.0.3",
         "@vueuse/core": "^10.2.1",
-        "eslint": "^8.44.0",
+        "eslint": "^8.45.0",
         "eslint-plugin-vue": "^9.15.1",
         "modern-module-resolution": "link:@rushstack/eslint-patch/modern-module-resolution",
         "pinia": "^2.1.4",
-        "postcss": "^8.4.25",
-        "rollup": "^3.26.2",
+        "postcss": "^8.4.27",
+        "rollup": "^3.26.3",
         "rollup-plugin-copy": "^3.4.0",
-        "sass": "^1.63.6",
+        "sass": "^1.64.1",
         "typescript": "^5.1.6",
         "unplugin-vue-components": "^0.25.1",
-        "vite": "^4.4.2",
+        "vite": "^4.4.6",
         "vue": "^3.3.4",
         "vue-router": "^4.2.4",
-        "vue-tsc": "^1.8.4"
+        "vue-tsc": "^1.8.6"
     }
 }

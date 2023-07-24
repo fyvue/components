@@ -15,6 +15,11 @@ export default [
     component: () => import("@/pages/docs/BreadcrumbPage.vue"),
   },
   {
+    path: "/docs/gallery",
+    name: "docs_gallery",
+    component: () => import("@/pages/docs/GalleryPage.vue"),
+  },
+  {
     path: "/docs/dateselection",
     name: "docs_dateselection",
     component: () => import("@/pages/docs/DateSelectionPage.vue"),

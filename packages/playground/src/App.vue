@@ -23,6 +23,7 @@ const components = [
   { link: "/docs/sidebar", title: "Sidebar" },
   { link: "/docs/table", title: "Table" },
   { link: "/docs/dateselection", title: "DateSelection" },
+  { link: "/docs/gallery", title: "Gallery" },
 ];
 const css = [{ link: "/docs/buttons", title: "Buttons" }];
 const klb = [

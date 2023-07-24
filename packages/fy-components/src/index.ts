@@ -27,6 +27,7 @@ import DefaultBackButton from "./components/ui/DefaultBackButton.vue";
 import DefaultDateSelection from "./components/ui/DefaultDateSelection.vue";
 import DefaultRestError from "./components/ui/DefaultRestError.vue";
 import DefaultDrawer from "./components/ui/DefaultDrawer.vue";
+import DefaultGallery from "./components/ui/DefaultGallery.vue";
 // KLB
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
@@ -81,6 +82,7 @@ export {
   DefaultDateSelection,
   DefaultRestError,
   DefaultDrawer,
+  DefaultGallery,
 
   // KLB
   KlbUseStore,
