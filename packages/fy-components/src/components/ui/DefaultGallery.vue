@@ -114,24 +114,33 @@ const getBorderColor = (i: any) => {
   }
   return "";
 };
+const isKeyPressed = ref<boolean>(false);
 const handleKeyboardInput = (event: KeyboardEvent) => {
+  if (isKeyPressed.value) return;
   switch (event.key) {
     case "ArrowRight":
+      isKeyPressed.value = true;
       goNextImage();
       break;
     case "ArrowLeft":
+      isKeyPressed.value = true;
       goPrevImage();
       break;
     default:
       break;
   }
 };
-
+const handleKeyboardRelease = (event: KeyboardEvent) => {
+  if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+    isKeyPressed.value = false;
+  }
+};
 onMounted(() => {
   eventBus.on(`${props.id}GalleryImage`, openGalleryImage);
   eventBus.on(`${props.id}Gallery`, openGalleryImage);
   if (window !== undefined && !import.meta.env.SSR) {
     window.addEventListener("keydown", handleKeyboardInput);
+    window.addEventListener("keyup", handleKeyboardRelease);
   }
 });
 onUnmounted(() => {
@@ -139,6 +148,7 @@ onUnmounted(() => {
   eventBus.off(`${props.id}GalleryImage`, openGalleryImage);
   if (window !== undefined && !import.meta.env.SSR) {
     window.removeEventListener("keydown", handleKeyboardInput);
+    window.removeEventListener("keyup", handleKeyboardRelease);
   }
 });
 </script>
