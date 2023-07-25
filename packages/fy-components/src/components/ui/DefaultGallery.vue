@@ -212,11 +212,13 @@ onUnmounted(() => {
                     <template
                       v-if="videoComponent && isVideo(images[modelValue])"
                     >
-                      <component
-                        :is="videoComponent"
-                        :src="modelValueSrc"
-                        class="shadow max-w-full h-auto object-contain"
-                      />
+                      <ClientOnly>
+                        <component
+                          :is="videoComponent"
+                          :src="isVideo(images[modelValue])"
+                          class="shadow max-w-full h-auto object-contain"
+                        />
+                      </ClientOnly>
                     </template>
                     <template v-else>
                       <img
