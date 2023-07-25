@@ -11,6 +11,7 @@ import {
   ChevronDoubleLeftIcon,
 } from "@heroicons/vue/24/solid";
 import DefaultPaging from "./DefaultPaging.vue";
+import { Component } from "vue";
 const isOpen = ref<boolean>(false);
 const eventBus = useEventBus();
 const sidePanel = ref<boolean>(true);
@@ -31,6 +32,9 @@ const props = withDefaults(
     buttonType?: string;
     modelValue: number;
     borderColor?: Function;
+    imageLoader: string;
+    videoComponent?: Component;
+    isVideo?: Function;
   }>(),
   {
     modelValue: 0,
@@ -38,6 +42,7 @@ const props = withDefaults(
     gridHeight: 4,
     closeIcon: () => h(XCircleIcon),
     images: () => [],
+    isVideo: (image: any) => false,
     getImageUrl: (image: any) => image.image_url,
     getThumbnailUrl: (image: any) => `${image.image_url}?s=250x250&m=autocrop`,
     paging: undefined,
@@ -190,7 +195,11 @@ onUnmounted(() => {
                 <div
                   class="hidden lg:relative lg:flex w-10 flex-shrink-0 items-center justify-center"
                 >
-                  <button class="btn p-1 rounded-full" @click="goPrevImage()">
+                  <button
+                    class="btn p-1 rounded-full"
+                    v-if="images.length > 1"
+                    @click="goPrevImage()"
+                  >
                     <ArrowLeftCircleIcon class="w-8 h-8" />
                   </button>
                 </div>
@@ -200,13 +209,24 @@ onUnmounted(() => {
                   <div
                     class="flex-1 w-full max-w-full flex items-center justify-center"
                   >
-                    <img
-                      class="shadow max-w-full h-auto object-contain"
-                      :src="modelValueSrc"
-                      v-if="modelValueSrc"
-                      @touchstart="touchStart"
-                      @touchend="touchEnd"
-                    />
+                    <template
+                      v-if="videoComponent && isVideo(images[modelValue])"
+                    >
+                      <component
+                        :is="videoComponent"
+                        :src="modelValueSrc"
+                        class="shadow max-w-full h-auto object-contain"
+                      />
+                    </template>
+                    <template v-else>
+                      <img
+                        class="shadow max-w-full h-auto object-contain"
+                        :src="modelValueSrc"
+                        v-if="modelValueSrc"
+                        @touchstart="touchStart"
+                        @touchend="touchEnd"
+                      />
+                    </template>
                   </div>
                   <div class="flex-0 py-2 flex items-center justify-center">
                     <slot></slot>
@@ -227,7 +247,11 @@ onUnmounted(() => {
                     <ChevronDoubleRightIcon class="w-7 h-7" v-if="sidePanel" />
                     <ChevronDoubleLeftIcon class="w-7 h-7" v-else />
                   </button>
-                  <button class="btn p-1 rounded-full" @click="goNextImage()">
+                  <button
+                    class="btn p-1 rounded-full"
+                    @click="goNextImage()"
+                    v-if="images.length > 1"
+                  >
                     <ArrowRightCircleIcon class="w-8 h-8" />
                   </button>
                 </div>
