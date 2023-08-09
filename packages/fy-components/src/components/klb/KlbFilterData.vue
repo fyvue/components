@@ -13,6 +13,7 @@ interface FilterData {
   type: string;
   restValue?: string;
   options?: any[][];
+  isHidden?: boolean;
   default?: any | undefined;
   formats?: Record<string, (value: any) => any>;
 }
@@ -121,24 +122,26 @@ onUnmounted(() => {
     <div :class="css">
       <div v-for="(g, i) in data" :key="`index_${i}`">
         <template v-for="f in g" :key="f.uid">
-          <DefaultInput
-            :type="f.type"
-            :label="f.label"
-            :id="f.uid"
-            v-if="['text', 'select', 'date', 'email'].includes(f.type)"
-            :options="f.options ? f.options : [[]]"
-            v-model="state.formData[f.uid]"
-            :errorVuelidate="v$.formData[f.uid].$errors"
-            class="mb-2"
-          />
-          <DefaultDateSelection
-            :id="f.uid"
-            :label="f.label"
-            v-if="f.type === 'range'"
-            mode="interval"
-            v-model="state.formData[f.uid]"
-            class="mb-2"
-          />
+          <template v-if="!f.isHidden">
+            <DefaultInput
+              :type="f.type"
+              :label="f.label"
+              :id="f.uid"
+              v-if="['text', 'select', 'date', 'email'].includes(f.type)"
+              :options="f.options ? f.options : [[]]"
+              v-model="state.formData[f.uid]"
+              :errorVuelidate="v$.formData[f.uid].$errors"
+              class="mb-2"
+            />
+            <DefaultDateSelection
+              :id="f.uid"
+              :label="f.label"
+              v-if="f.type === 'range'"
+              mode="interval"
+              v-model="state.formData[f.uid]"
+              class="mb-2"
+            />
+          </template>
         </template>
       </div>
     </div>

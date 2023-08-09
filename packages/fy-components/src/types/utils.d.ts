@@ -50,6 +50,16 @@ export type NavLink = {
   icon?: Component;
   id?: string;
 };
+export type NavLinkComp = {
+  to: string;
+  isExternal?: boolean;
+  name: string;
+  childrens?: NavLinkComp[];
+  icon?: {
+    component: Component;
+    props: any;
+  };
+};
 
 export interface TableData {
   [key: string]: any;

@@ -32,7 +32,6 @@ import DefaultGallery from "./components/ui/DefaultGallery.vue";
 import KlbUserFlow from "./components/klb/KlbUserFlow.vue";
 import KlbContact from "./components/klb/KlbContact.vue";
 import KlbPage from "./components/klb/KlbPage.vue";
-import KlbNavbar from "./components/klb/KlbNavbar.vue";
 import KlbLocation from "./components/klb/KlbLocation.vue";
 import KlbPaymentMethod from "./components/klb/KlbPaymentMethod.vue";
 import KlbBillingHistory from "./components/klb/KlbBillingHistory.vue";
@@ -40,6 +39,7 @@ import KlbUpdatePassword from "./components/klb/KlbUpdatePassword.vue";
 import KlbUpdateEmail from "./components/klb/KlbUpdateEmail.vue";
 import KlbDataTable from "./components/klb/KlbDataTable.vue";
 import KlbFilterData from "./components/klb/KlbFilterData.vue";
+import KLbNavbar from "./components/klb/KlbNavbar.vue";
 // MISC
 import type { FyHeadLazy } from "./types/utils";
 import type { KlbAPIResult } from "./types/klb";
@@ -92,10 +92,10 @@ export {
   KlbRest,
   KlbcountriesPromise,
   KlbUseCountries,
+  KLbNavbar,
   KlbContact,
   KlbUserFlow,
   KlbPage,
-  KlbNavbar,
   KlbLocation,
   KlbPaymentMethod,
   KlbBillingHistory,

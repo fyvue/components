@@ -216,13 +216,15 @@ onUnmounted(() => {
                         <component
                           :is="videoComponent"
                           :src="isVideo(images[modelValue])"
-                          class="shadow max-w-full h-auto object-contain"
+                          class="shadow max-w-full h-auto object-contain max-h-[85vh]"
+                          @touchstart="touchStart"
+                          @touchend="touchEnd"
                         />
                       </ClientOnly>
                     </template>
                     <template v-else>
                       <img
-                        class="shadow max-w-full h-auto object-contain"
+                        class="shadow max-w-full h-auto object-contain max-h-[85vh]"
                         :src="modelValueSrc"
                         v-if="modelValueSrc"
                         @touchstart="touchStart"
