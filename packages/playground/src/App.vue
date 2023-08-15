@@ -6,7 +6,7 @@ import {
   KlbUseUserCheck,
   KlbcountriesPromise,
 } from "@fy-/components";
-import { KlbNavbar } from "@fy-/components";
+import { KLbNavbar } from "@fy-/components";
 import { computed } from "vue";
 await i18nextPromise(Backend);
 await KlbcountriesPromise();
@@ -44,7 +44,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
     <header
       class="border-b border-fv-neutral-200 dark:border-fv-neutral-600 dark:bg-fv-neutral-800"
     >
-      <KlbNavbar
+      <KLbNavbar
         siteName="@fy-/components"
         siteLogo="/logo.svg"
         loginPage="/docs/klbuserflow"
@@ -61,7 +61,7 @@ klb.sort((a, b) => a.title.localeCompare(b.title));
           },
           { to: '/contact', name: 'Contact' },
         ]"
-      ></KlbNavbar>
+      ></KLbNavbar>
     </header>
     <div class="w-full px-4 mx-auto max-w-8xl">
       <div class="lg:flex">

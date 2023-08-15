@@ -79,9 +79,9 @@ export function useRestComposable(
   ctx?: any,
   headers?: Headers
 ) => Promise<ResultType> {
-  const restMode = app?.config.globalProperties.$restMode || useRestMode();
-  const eventBus = app?.config.globalProperties.$eventBus || useEventBus();
-  const prefix = app?.config.globalProperties.$restPrefix || useRestPrefix();
+  const restMode = app?.config.globalProperties.$restMode || "KLB";
+  const eventBus = app?.config.globalProperties.$eventBus;
+  const prefix = app?.config.globalProperties.$restPrefix || "";
   let restFunction: <ResultType extends KlbAPIResult>(
     url: string,
     method: string,

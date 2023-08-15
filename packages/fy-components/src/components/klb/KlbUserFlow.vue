@@ -7,10 +7,12 @@ import type {
   KlbUserFlowField,
   KlbAPIResultUnknown,
 } from "../../types/klb";
-import { rest } from "../../helpers/KlbSSR";
 import { useKlbStore } from "../../stores/klb";
 import { useFyStore } from "../../stores/fy";
 import DefaultInput from "../ui/DefaultInput.vue";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
+
 type ObjectS2Any = {
   [key: string]: any;
 };

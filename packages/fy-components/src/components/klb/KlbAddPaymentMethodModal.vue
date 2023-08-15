@@ -12,7 +12,8 @@ import { useBilling } from "../../composables/useBilling";
 import { useCountries } from "../../composables/useCountries";
 import { KlbAPISetupIntent } from "../../types/klb";
 import { useKlbStore } from "../../stores/klb";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 import DefaultModal from "../ui/DefaultModal.vue";
 import DefaultInput from "../ui/DefaultInput.vue";
 const props = defineProps({
@@ -118,7 +119,7 @@ onMounted(async () => {
     history.currentRoute.query.newMode == "1"
   ) {
     eventBus.emit("main-loading", true);
-    const _result = await KlbRest("User/Billing:create", "POST", {
+    const _result = await rest("User/Billing:create", "POST", {
       Label: state.value.label,
       First_Name: state.value.firstname,
       Last_Name: state.value.lastname,

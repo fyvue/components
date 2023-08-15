@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { rest } from "../../helpers/KlbSSR";
 import { ref, reactive, computed, watch, onMounted, onUnmounted } from "vue";
 import { useKlbStore } from "../../stores/klb";
 import { email, required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useEventBus } from "@fy-/core";
 import DefaultInput from "../ui/DefaultInput.vue";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 
 const store = useKlbStore();
 const isAuth = computed(() => store.isAuth);

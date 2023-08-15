@@ -11,8 +11,9 @@ import {
 import InnerLoader from "../ui/InnerLoader.vue";
 import { useTranslation } from "@fy-/core";
 import { useKlbStore } from "../../stores/klb";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
 import { useCountries } from "../../composables/useCountries";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 const props = withDefaults(
   defineProps<{
     displayOnly?: boolean;
@@ -62,7 +63,7 @@ const rules = {
 const v$ = useVuelidate(rules, state);
 
 const getUserGeolocation = async () => {
-  const _userLoc = await KlbRest<KlbAPIResultUnknown>(
+  const _userLoc = await rest<KlbAPIResultUnknown>(
     "ThirdParty/Geoip:lookup",
     "GET"
   ).catch(() => {});
@@ -71,7 +72,7 @@ const getUserGeolocation = async () => {
   }
 };
 const deleteLocation = async () => {
-  await KlbRest<KlbAPIUserLocation>(
+  await rest<KlbAPIUserLocation>(
     `User/Location/${location.value?.User_Location__}`,
     "DELETE",
     {}
@@ -80,7 +81,7 @@ const deleteLocation = async () => {
 };
 const submitLocation = async () => {
   if (location.value) {
-    await KlbRest<KlbAPIUserLocation>(
+    await rest<KlbAPIUserLocation>(
       `User/Location/${location.value?.User_Location__}`,
       "PATCH",
       {
@@ -93,7 +94,7 @@ const submitLocation = async () => {
     editMode.value = false;
     await getUserLocation();
   } else {
-    await KlbRest<KlbAPIUserLocation>(`User/Location`, "POST", {
+    await rest<KlbAPIUserLocation>(`User/Location`, "POST", {
       First_Name: state.firstname,
       Last_Name: state.lastname,
       Zip: state.zip,
@@ -109,13 +110,9 @@ const getUserLocation = async () => {
   state.lastname = "";
   state.zip = "";
   if (isAuth.value) {
-    const _locations = await KlbRest<KlbAPIUserLocations>(
-      `User/Location`,
-      "GET",
-      {
-        sort: "Created",
-      }
-    ).catch(() => {});
+    const _locations = await rest<KlbAPIUserLocations>(`User/Location`, "GET", {
+      sort: "Created",
+    }).catch(() => {});
     if (_locations && _locations.result == "success") {
       if (_locations.data.length > 0) {
         location.value = _locations.data[0];

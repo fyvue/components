@@ -7,7 +7,8 @@ import DefaultPaging from "../ui/DefaultPaging.vue";
 import DefaultTable from "../ui/DefaultTable.vue";
 import InnerLoader from "../ui/InnerLoader.vue";
 import { useKlbStore } from "../../stores/klb";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 
 const store = useKlbStore();
 const route = useRoute();
@@ -16,7 +17,7 @@ const eventBus = useEventBus();
 const billingHistory = ref<any>();
 const getPaymentHistory = async (page = 1) => {
   if (route.query.page) page = parseInt(route.query.page.toString());
-  const _billingHistory = await KlbRest<any>("Order", "GET", {
+  const _billingHistory = await rest<any>("Order", "GET", {
     page_no: page,
     results_per_page: 10,
     Status: "completed",

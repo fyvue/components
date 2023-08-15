@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { rest } from "../../helpers/KlbSSR";
 import { useSeo } from "../../composables/useSeo";
 import { useRoute } from "vue-router";
 import { ref, watch } from "vue";
@@ -9,6 +8,8 @@ import type { KlbAPIContentCmsSingle } from "../../types/klb";
 import type { Component } from "vue";
 import DefaultBreadcrumb from "../ui/DefaultBreadcrumb.vue";
 import type { BreadcrumbLink } from "../../types/utils";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 
 const props = withDefaults(
   defineProps<{

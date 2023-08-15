@@ -47,7 +47,7 @@ const props = withDefaults(
     filtersData: DefaultAnyObject;
     apiPath: string;
     defaultSort?: SortingField;
-    restFunction?: Function;
+    restFunction?: Function | null;
   }>(),
   {
     showHeaders: true,
@@ -57,9 +57,11 @@ const props = withDefaults(
     exportableName: "default",
     defaultPerPage: 25,
     defaultSort: () => ({ field: "Created", direction: "DESC" }),
-    restFunction: () => useRest(),
+    restFunction: null,
   }
 );
+const rest = useRest();
+const restFunction = props.restFunction ?? rest;
 const perPage = useStorage<number>(`${props.id}PerPage`, props.defaultPerPage);
 const currentSort = useStorage<SortingField>(
   `${props.id}CurrentSort`,
@@ -76,7 +78,7 @@ const getData = async (page: number = 1) => {
     results_per_page: perPage.value,
     page_no: page,
   };
-  const r = await props.restFunction(props.apiPath, "GET", requestParams, {
+  const r = await restFunction(props.apiPath, "GET", requestParams, {
     getBody: true,
   });
   currentPage.value = page;

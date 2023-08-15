@@ -6,8 +6,8 @@ import { useEventBus } from "@fy-/core";
 import DefaultInput from "../ui/DefaultInput.vue";
 import DefaultModal from "../ui/DefaultModal.vue";
 import { useKlbStore } from "../../stores/klb";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
-
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 withDefaults(
   defineProps<{
     showValueButton?: boolean;
@@ -32,7 +32,7 @@ const v$ = useVuelidate(rules, { oldPwd, pwd, pwdConfirm });
 const changeEmail = async () => {
   errorOnSubmit.value = undefined;
   if (await v$.value.$validate()) {
-    const _updateResult = await KlbRest("User/@:setPassword", "POST", {
+    const _updateResult = await rest("User/@:setPassword", "POST", {
       old_password: oldPwd.value,
       password: pwd.value,
     }).catch((err) => {

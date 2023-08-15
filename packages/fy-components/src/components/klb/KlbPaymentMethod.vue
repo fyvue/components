@@ -13,13 +13,14 @@ import {
   KlbAPIUserLocation,
 } from "../../types/klb";
 import { useKlbStore } from "../../stores/klb";
-import { rest as KlbRest } from "../../helpers/KlbSSR";
 import { useEventBus } from "@fy-/core";
 import DefaultInput from "../ui/DefaultInput.vue";
 import DefaultModal from "../ui/DefaultModal.vue";
 import KlbUserLocation from "./KlbLocation.vue";
 import KlbAddPaymentMethodModal from "./KlbAddPaymentMethodModal.vue";
 import { useBilling } from "../../composables/useBilling";
+import { useRest } from "../../composables/useRest";
+const rest = useRest();
 const props = withDefaults(
   defineProps<{
     displayOnly?: boolean;
@@ -76,7 +77,7 @@ const v$ = useVuelidate(rules, state);
 const submitBillingEdit = async () => {
   eventBus.emit("main-loading", true);
   errorMessage.value = undefined;
-  const _userLocation = await KlbRest<KlbAPIUserLocation>(
+  const _userLocation = await rest<KlbAPIUserLocation>(
     `User/Location/${billingProfile.value?.User_Location__}`,
     "GET"
   ).catch(() => {});
@@ -120,14 +121,10 @@ const submitBillingEdit = async () => {
 const submitUserBilling = async () => {
   errorMessage.value = undefined;
   if ((await v$.value.billingProfile.$validate()) && billingProfile.value) {
-    await KlbRest(
-      `User/Billing/${billingProfile.value.User_Billing__}`,
-      "PATCH",
-      {
-        User_Location__: state.billingProfile.location,
-        Label: state.billingProfile.label,
-      }
-    ).catch(() => {});
+    await rest(`User/Billing/${billingProfile.value.User_Billing__}`, "PATCH", {
+      User_Location__: state.billingProfile.location,
+      Label: state.billingProfile.label,
+    }).catch(() => {});
     await getUserBilling();
     isLoaded.value = true;
     editMode.value = false;
@@ -136,7 +133,7 @@ const submitUserBilling = async () => {
 const getUserBilling = async () => {
   isLoaded.value = false;
   if (isAuth.value) {
-    const _billingProfiles = await KlbRest<KlbAPIUserBilling>(
+    const _billingProfiles = await rest<KlbAPIUserBilling>(
       `User/Billing`,
       "GET",
       {
@@ -238,7 +235,7 @@ const getStarted = async () => {
       history.currentRoute.query.editUuid &&
       history.currentRoute.query.billingProfile
     ) {
-      await KlbRest(
+      await rest(
         `User/Billing/Method/${history.currentRoute.query.editUuid}:change`,
         "POST",
         {

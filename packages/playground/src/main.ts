@@ -7,6 +7,7 @@ import {
 import { createFyCore } from "@fy-/core";
 import { createFyHead } from "@fy-/head";
 import { createPinia } from "pinia";
+import { createFyComponents } from "@fy-/components";
 import { getPrefix } from "@karpeleslab/klbfw";
 import routes from "./routes";
 import App from "./AppSuspender.vue";
@@ -15,6 +16,7 @@ export const createApp = async (isSSR = false) => {
   const pinia = createPinia();
   const head = createFyHead();
   const fycore = createFyCore();
+  const components = createFyComponents(undefined, "KLB");
   const app = isSSR ? createSSRApp(App) : createRegularApp(App);
   const router = createRouter({
     history: import.meta.env.SSR
@@ -32,10 +34,12 @@ export const createApp = async (isSSR = false) => {
   router.afterEach((to) => {
     if (typeof window !== "undefined" && !to.hash) window.scrollTo(0, 0);
   });
-  app.use(router);
   app.use(fycore);
   app.use(head);
+  app.use(components);
   app.use(pinia);
+  app.use(router);
+
   app.config.globalProperties.$cleanScript = (txt: string) => {
     return txt
       .replace("_script_", '<script setup lang="ts">')
