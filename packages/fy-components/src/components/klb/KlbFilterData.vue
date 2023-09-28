@@ -16,6 +16,8 @@ interface FilterData {
   isHidden?: boolean;
   default?: any | undefined;
   formats?: Record<string, (value: any) => any>;
+  formatRestValue?: (value: any) => any;
+  onChangeValue?: (form: any, value: any) => void;
 }
 const emit = defineEmits(["update:modelValue"]);
 const state = reactive<any>({ formData: {} });
@@ -70,6 +72,9 @@ const formatValues = (obj: any) => {
     group.forEach((f) => {
       if (f.formats && f.formats[f.type]) {
         obj[f.uid] = f.formats[f.type](obj[f.uid]);
+      }
+      if (f.formatRestValue) {
+        obj[f.uid] = f.formatRestValue(obj[f.uid]);
       }
     });
   });
@@ -132,6 +137,13 @@ onUnmounted(() => {
               v-model="state.formData[f.uid]"
               :errorVuelidate="v$.formData[f.uid].$errors"
               class="mb-2"
+              @change="
+                (ev: any) => {
+                  if (f.onChangeValue) {
+                    f.onChangeValue(state.formData, ev);
+                  }
+                }
+              "
             />
             <DefaultDateSelection
               :id="f.uid"
