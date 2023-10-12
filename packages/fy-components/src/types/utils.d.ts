@@ -28,6 +28,8 @@ export interface FyHeadLazy {
   url?: string;
   canonical?: string;
   isAdult?: boolean;
+  locale?: string;
+  alternateLocales?: string[];
 }
 export type modelValueType = string | number | string[] | undefined;
 export type checkboxValueType = any[] | Set<any> | undefined | boolean;

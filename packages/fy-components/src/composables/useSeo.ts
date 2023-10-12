@@ -38,6 +38,21 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
           key: "next",
         });
       }
+      if (seo.value.alternateLocales) {
+        const currentLocale = seo.value.locale ? seo.value.locale : getLocale();
+        seo.value.alternateLocales.forEach((locale) => {
+          if (locale != currentLocale) {
+            _res.push({
+              rel: "alternate",
+              hreflang: locale,
+              href: `${getUrl().scheme}://${getUrl().host}/l/${locale}${
+                getUrl().path
+              }`,
+              key: `alternate-${locale}`,
+            });
+          }
+        });
+      }
       return _res;
     }),
     /*htmlAttrs: computed(() => {
@@ -56,7 +71,7 @@ export const useSeo = (seo: Ref<FyHeadLazy>, initial: boolean = false) => {
         _res.push(
           {
             property: "og:locale",
-            content: getLocale().replace("-", "_"),
+            content: seo.value.locale ? seo.value.locale : getLocale(),
           },
           {
             property: "og:url",

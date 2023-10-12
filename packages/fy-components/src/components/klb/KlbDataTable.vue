@@ -146,26 +146,35 @@ const exportToCsv = () => {
   link.click();
   document.body.removeChild(link);
 };
+watch(perPage, () => {
+  getData();
+});
+watch(currentSort, () => {
+  getData();
+});
+watch(
+  () => props.filtersData,
+  () => {
+    getData();
+  }
+);
+watch(
+  () => props.apiPath,
+  () => {
+    getData();
+  }
+);
 onMounted(() => {
   eventBus.on(`${props.id}PagesGoToPage`, getData);
   eventBus.on(`${props.id}Reload`, getData);
-  watch(perPage, () => {
-    getData();
-  });
-  watch(currentSort, () => {
-    getData();
-  });
-  watch(
-    () => props.filtersData,
-    () => {
-      getData();
-    }
-  );
+  eventBus.on(`${props.id}Refresh`, getData);
+
   getData();
 });
 onUnmounted(() => {
   eventBus.off(`${props.id}PagesGoToPage`, getData);
   eventBus.off(`${props.id}Reload`, getData);
+  eventBus.off(`${props.id}Refresh`, getData);
 });
 </script>
 <template>
